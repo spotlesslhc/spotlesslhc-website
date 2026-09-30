@@ -1,0 +1,1 @@
+Fonts (Fraunces, Inter, JetBrains Mono) are licensed under the SIL Open Font License 1.1 (https://openfontlicense.org), copyright their respective authors; obtained from Google Fonts.
