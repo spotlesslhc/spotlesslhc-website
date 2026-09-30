@@ -102,7 +102,7 @@
   .menu summary{list-style:none; cursor:pointer; padding:8px 12px; font-weight:700; font-size:0.85rem; color:var(--navy); border:1.5px solid var(--navy); border-radius:999px;}
   .menu summary::-webkit-details-marker{display:none;}
   .menu nav{position:absolute; right:0; top:calc(100% + 10px); display:flex; flex-direction:column; min-width:200px; background:var(--sand); border:1px solid var(--line); border-radius:12px; box-shadow:0 12px 30px -12px rgba(11,35,56,.4); overflow:hidden;}
-  .menu nav a{padding:14px 18px; text-decoration:none; font-weight:600; color:var(--navy);}
+  .menu nav a{display:block; padding:14px 18px; text-decoration:none; font-weight:600; color:var(--navy);}
   .menu nav a+a{border-top:1px solid var(--line);}
   @media (max-width:860px){
     .nav-links{display:none;}
@@ -115,7 +115,7 @@
     .brand-word span{font-size:0.56rem;}
     .phone-pill span.pp-text{display:none;}
     .nav-cta{gap:8px;}
-    .nav-cta .btn{padding:10px 16px; font-size:0.82rem;}
+    .nav-cta .btn{display:none;}
   }
 
   /* ---------- Hero ---------- */
@@ -331,7 +331,7 @@
 <header class="site">
   <div class="nav">
     <a class="brand" href="#top">
-      <img src="/logo.webp" alt="Spotless Cleaning logo">
+      <img src="/logo.webp" width="160" height="107" alt="Spotless Cleaning logo">
       <span class="brand-word">Spotless Cleaning<span>Lake Havasu City</span></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -349,10 +349,10 @@
       <details class="menu">
         <summary aria-label="Menu">Menu</summary>
         <nav aria-label="Mobile">
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#quote">Get a Quote</a>
-          <a href="#area">Service Area</a>
+          <a onclick="this.closest('details').open=false" href="#services">Services</a>
+          <a onclick="this.closest('details').open=false" href="#why">Why Us</a>
+          <a onclick="this.closest('details').open=false" href="#quote">Get a Quote</a>
+          <a onclick="this.closest('details').open=false" href="#area">Service Area</a>
         </nav>
       </details>
     </div>
@@ -610,7 +610,7 @@
     <div class="foot-grid">
       <div>
         <div class="foot-brand">
-          <img src="/logo.webp" alt="Spotless Cleaning logo">
+          <img src="/logo.webp" width="160" height="107" alt="Spotless Cleaning logo">
           <span class="fb-word">Spotless Cleaning</span>
         </div>
         <p>Licensed &amp; insured residential and commercial cleaning, locally owned and operated in Lake Havasu City, AZ. Vacation rental turnovers also available.</p>
