@@ -269,6 +269,9 @@
   .qb-step[hidden]{display:none;}
   .quote-board{scroll-margin-top:90px;}
   .qb-nav [hidden]{display:none;}
+  #qbResult{display:contents;} #qbResult[hidden]{display:none;}
+  .qb-estimate .btn{margin-top:16px; align-self:flex-start;}
+  .qb-estimate .edit-note{font-size:0.78rem; color:rgba(255,255,255,0.65); margin-top:8px;}
   .qb-nav{display:flex; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;}
   .qb-form h3{font-size:1.3rem; margin-bottom:4px;}
   .qb-form > p.hint{color:#5a6b7c; font-size:0.9rem; margin:0 0 26px;}
@@ -633,6 +636,7 @@
           <div class="form-error" id="formError" role="alert" style="display:none;"></div>
         </div>
 
+        <div id="qbResult" hidden></div>
       </form>
     </div>
   </section>
@@ -789,6 +793,14 @@ function calculate(){
   return { total, lines, type: svc.label, frequency: freq.label };
 }
 
+$('qbResult').addEventListener('click', (e) => {
+  if (e.target.id !== 'editBtn') return;
+  $('quoteForm').classList.remove('done');
+  $('qbResult').hidden = true;
+  document.querySelector('.qb-form').hidden = false;
+  showStep(3);
+});
+
 /* Steps */
 let step = 1;
 const steps = [...document.querySelectorAll('.qb-step')];
@@ -812,6 +824,7 @@ $('nextBtn').addEventListener('click', () => {
 $('backBtn').addEventListener('click', () => showStep(step - 1));
 
 /* Submit → silently POST to Formspree, then show an inline success state */
+let sent = false;
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xppanjew";
 
 document.getElementById('quoteForm').addEventListener('submit', async function(e){
@@ -850,7 +863,8 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
     estimated_price: money(total),
     notes: notes || "(none)",
     _gotcha: $("qGotcha").value,
-    _subject: `Quote request from ${name} — Spotless Cleaning website`,
+    update: sent ? "Yes — customer revised their add-ons after seeing the estimate" : "No",
+    _subject: `${sent ? 'UPDATED quote request' : 'Quote request'} from ${name} — Spotless Cleaning website`,
   };
 
   const btn = $('submitBtn');
@@ -877,10 +891,17 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
     }).join('');
     const board = document.querySelector('.quote-board');
     board.classList.add('done');
-    board.innerHTML = `
+    document.querySelector('.qb-form').hidden = true;
+    btn.disabled = false;
+    btn.textContent = 'Send updated request';
+    const updated = sent;
+    sent = true;
+    const result = $('qbResult');
+    result.hidden = false;
+    result.innerHTML = `
       <div class="qb-form"><div class="qb-success">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-        <h3>Thanks, ${esc(name.split(' ')[0])} — request sent!</h3>
+        <h3>Thanks, ${esc(name.split(' ')[0])} — ${updated ? 'updated request sent!' : 'request sent!'}</h3>
         <p>We got your quote request and will follow up shortly at ${esc(phone || email)} to confirm the details.</p>
       </div></div>
       <div class="qb-estimate">
@@ -889,6 +910,8 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
         <div class="qb-price-note">Estimated price — we'll confirm the final number after a quick follow-up.</div>
         <ul class="qb-breakdown">${rows}</ul>
         <div class="fineprint">Prices are a starting estimate based on the details provided. Final quote may vary after we see the space.</div>
+        <button type="button" class="btn btn-sun" id="editBtn">Change add-ons to lower my price</button>
+        <div class="edit-note">We'll send you the updated request.</div>
       </div>`;
   } catch (err){
     btn.disabled = false;
