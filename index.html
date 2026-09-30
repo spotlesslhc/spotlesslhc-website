@@ -257,10 +257,19 @@
   /* ---------- Quote calculator (signature interactive element) ---------- */
   .quote{background:var(--white);}
   .quote-board{
-    display:grid; grid-template-columns:1.15fr 0.85fr;
+    display:grid; grid-template-columns:1fr; max-width:760px; margin:0 auto;
     border-radius:22px; overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--line);
   }
+  .quote-board.done{grid-template-columns:1.15fr 0.85fr; max-width:none;}
   .qb-form{background:var(--white); padding:40px 40px;}
+  .qb-progress{display:flex; gap:8px; margin:0 0 6px;}
+  .qb-progress span{flex:1; height:6px; border-radius:3px; background:var(--line);}
+  .qb-progress span.on{background:var(--teal-deep);}
+  .qb-stepnum{font-size:0.8rem; font-weight:700; color:var(--teal-deep); margin:0 0 18px;}
+  .qb-step[hidden]{display:none;}
+  .quote-board{scroll-margin-top:90px;}
+  .qb-nav [hidden]{display:none;}
+  .qb-nav{display:flex; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;}
   .qb-form h3{font-size:1.3rem; margin-bottom:4px;}
   .qb-form > p.hint{color:#5a6b7c; font-size:0.9rem; margin:0 0 26px;}
 
@@ -321,7 +330,7 @@
   .qb-estimate .fineprint{margin-top:auto; font-size:0.78rem; color:rgba(255,255,255,0.55); padding-top:16px;}
 
   @media (max-width:900px){
-    .quote-board{grid-template-columns:1fr;}
+    .quote-board.done{grid-template-columns:1fr;}
     .field-row, .addon-grid{grid-template-columns:1fr;}
     .qb-form{padding:30px 24px;}
   }
@@ -502,15 +511,19 @@
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Instant estimate</span>
-        <h2>Get a real-time price estimate</h2>
-        <p>Tell us about the space and we'll show you a rough estimate on the spot. Submit it and we'll follow up to confirm final pricing.</p>
+        <h2>Get your price estimate</h2>
+        <p>Answer a few quick questions and we'll show your estimate as soon as you submit. We'll follow up to confirm final pricing.</p>
       </div>
 
       <form class="quote-board" id="quoteForm">
         <input type="text" name="_gotcha" id="qGotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <div class="qb-form">
-          <h3>Tell us about the job</h3>
-          <p class="hint">All fields marked * are required.</p>
+          <div class="qb-progress" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+          <p class="qb-stepnum" id="stepNum" aria-live="polite">Step 1 of 3</p>
+
+          <div class="qb-step" data-step="1">
+          <h3>Your details</h3>
+          <p class="hint">So we know who to get back to. Fields marked * are required.</p>
 
           <div class="field-row">
             <div class="field">
@@ -534,6 +547,11 @@
             </div>
           </div>
 
+          </div>
+
+          <div class="qb-step" data-step="2" hidden>
+          <h3>About the space</h3>
+          <p class="hint">Tell us what needs cleaning.</p>
           <div class="field-row">
             <div class="field">
               <label for="qType">Type of cleaning *</label>
@@ -575,6 +593,11 @@
             <div class="field"></div>
           </div>
 
+          </div>
+
+          <div class="qb-step" data-step="3" hidden>
+          <h3>Extras and notes</h3>
+          <p class="hint">Optional add-ons, then send it and we'll show your estimate.</p>
           <fieldset>
             <legend>Add-ons</legend>
             <div class="addon-grid">
@@ -599,20 +622,17 @@
             <textarea id="qNotes" name="notes" placeholder="Gate codes, special requests, preferred dates..."></textarea>
           </div>
 
-          <div class="qb-submit-row">
-            <button type="submit" class="btn btn-primary" id="submitBtn">Send my quote request</button>
-            <span class="form-note" id="submitNote">We'll get your request right away and follow up shortly.</span>
+          </div>
+
+          <div class="qb-nav">
+            <button type="button" class="btn btn-ghost" id="backBtn" hidden>Back</button>
+            <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn" hidden>Send and see my estimate</button>
+            <span class="form-note" id="submitNote" hidden>We'll follow up shortly to confirm the details.</span>
           </div>
           <div class="form-error" id="formError" role="alert" style="display:none;"></div>
         </div>
 
-        <div class="qb-estimate">
-          <span class="eyebrow">Rough estimate</span>
-          <div class="qb-price"><span id="priceOut">$90</span></div>
-          <div class="qb-price-note">Estimated price — we'll confirm the final number after a quick follow-up.</div>
-          <ul class="qb-breakdown" id="breakdownOut"></ul>
-          <div class="fineprint">Prices are a starting estimate based on the details provided. Final quote may vary after we see the space.</div>
-        </div>
       </form>
     </div>
   </section>
@@ -708,13 +728,11 @@ $('laundryPlus').addEventListener('click', () => {
   laundryLoads = Math.min(laundryLoads + 1, 10);
   laundryOut.textContent = laundryLoads;
   $('qLaundry').value = laundryLoads;
-  calculate();
 });
 $('laundryMinus').addEventListener('click', () => {
   laundryLoads = Math.max(laundryLoads - 1, 0);
   laundryOut.textContent = laundryLoads;
   $('qLaundry').value = laundryLoads;
-  calculate();
 });
 
 function calculate(){
@@ -768,32 +786,37 @@ function calculate(){
     lines.push({ label: `${freq.label} recurring discount`, amount: -discountAmt, kind: 'discount' });
   }
 
-  $('priceOut').textContent = money(total);
-  const list = $('breakdownOut');
-  list.innerHTML = lines.map(l => {
-    const negative = l.amount < 0;
-    const shown = negative ? `\u2212${money(Math.abs(l.amount))}` : money(l.amount);
-    return `<li><span>${l.label}</span><span${negative ? ' style="color:var(--sun)"' : ''}>${shown}</span></li>`;
-  }).join('');
-
   return { total, lines, type: svc.label, frequency: freq.label };
 }
 
-['qType','qFreq','qSqft','qBeds','qBaths'].forEach(id => {
-  $(id).addEventListener('input', calculate);
-  $(id).addEventListener('change', calculate);
+/* Steps */
+let step = 1;
+const steps = [...document.querySelectorAll('.qb-step')];
+function showStep(n){
+  step = n;
+  steps.forEach(s => s.hidden = +s.dataset.step !== n);
+  document.querySelectorAll('.qb-progress span').forEach((s,i) => s.classList.toggle('on', i < n));
+  $('stepNum').textContent = 'Step ' + n + ' of 3';
+  $('backBtn').hidden = n === 1;
+  $('nextBtn').hidden = n === 3;
+  $('submitBtn').hidden = n !== 3;
+  $('submitNote').hidden = n !== 3;
+  $('formError').style.display = 'none';
+  $('quoteForm').scrollIntoView({behavior:'smooth', block:'start'});
+}
+$('nextBtn').addEventListener('click', () => {
+  const fields = [...steps[step-1].querySelectorAll('input, select, textarea')];
+  for (const f of fields){ if (!f.reportValidity()) return; }
+  showStep(step + 1);
 });
-['aPets','aWindows','aDishes','aFridge','aOven'].forEach(id => {
-  $(id).addEventListener('change', calculate);
-});
-
-calculate();
+$('backBtn').addEventListener('click', () => showStep(step - 1));
 
 /* Submit → silently POST to Formspree, then show an inline success state */
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xppanjew";
 
 document.getElementById('quoteForm').addEventListener('submit', async function(e){
   e.preventDefault();
+  if (step < 3){ $("nextBtn").click(); return; }
 
   const name = $('qName').value.trim();
   const phone = $('qPhone').value.trim();
@@ -847,12 +870,25 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
       throw new Error("Form submission failed");
     }
 
+    const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    const rows = lines.map(l => {
+      const neg = l.amount < 0;
+      return `<li><span>${esc(l.label)}</span><span${neg ? ' style="color:var(--sun)"' : ''}>${neg ? '−' + money(-l.amount) : money(l.amount)}</span></li>`;
+    }).join('');
     const board = document.querySelector('.quote-board');
+    board.classList.add('done');
     board.innerHTML = `
-      <div class="qb-success">
+      <div class="qb-form"><div class="qb-success">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-        <h3>Thanks, ${name.split(' ')[0]} — request sent!</h3>
-        <p>We got your quote request (estimated at ${money(total)}) and will follow up shortly at ${phone || email} to confirm the details.</p>
+        <h3>Thanks, ${esc(name.split(' ')[0])} — request sent!</h3>
+        <p>We got your quote request and will follow up shortly at ${esc(phone || email)} to confirm the details.</p>
+      </div></div>
+      <div class="qb-estimate">
+        <span class="eyebrow">Your estimate</span>
+        <div class="qb-price"><span>${money(total)}</span></div>
+        <div class="qb-price-note">Estimated price — we'll confirm the final number after a quick follow-up.</div>
+        <ul class="qb-breakdown">${rows}</ul>
+        <div class="fineprint">Prices are a starting estimate based on the details provided. Final quote may vary after we see the space.</div>
       </div>`;
   } catch (err){
     btn.disabled = false;
