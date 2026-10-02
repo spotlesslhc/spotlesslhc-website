@@ -596,9 +596,6 @@
       <form class="quote-board" id="quoteForm">
         <input type="text" name="_gotcha" id="qGotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <div class="qb-form">
-          <div class="qb-progress" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
-          <p class="qb-stepnum" id="stepNum" aria-live="polite">Step 1 of 3</p>
-
           <div class="qb-step" data-step="1">
           <h3>Your details</h3>
           <p class="hint">So we know who to get back to. Fields marked * are required.</p>
@@ -627,7 +624,7 @@
 
           </div>
 
-          <div class="qb-step" data-step="2" hidden>
+          <div class="qb-step" data-step="2">
           <h3>About the space</h3>
           <p class="hint">Tell us what needs cleaning.</p>
           <div class="field-row">
@@ -673,9 +670,9 @@
 
           </div>
 
-          <div class="qb-step" data-step="3" hidden>
+          <div class="qb-step" data-step="3">
           <h3>Extras and notes</h3>
-          <p class="hint">Optional add-ons, then send it and we'll show your estimate.</p>
+          <p class="hint">Optional add-ons, then get your quote.</p>
           <fieldset>
             <legend>Add-ons</legend>
             <div class="addon-grid">
@@ -703,10 +700,8 @@
           </div>
 
           <div class="qb-nav">
-            <button type="button" class="btn btn-ghost" id="backBtn" hidden>Back</button>
-            <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
-            <button type="submit" class="btn btn-primary" id="submitBtn" hidden>Send and see my estimate</button>
-            <span class="form-note" id="submitNote" hidden>We'll follow up shortly to confirm the details.</span>
+            <button type="submit" class="btn btn-primary" id="submitBtn">Submit and get quote</button>
+            <span class="form-note" id="submitNote">We'll follow up shortly to confirm the details.</span>
           </div>
           <div class="form-error" id="formError" role="alert" style="display:none;"></div>
         </div>
@@ -913,30 +908,8 @@ $('qbResult').addEventListener('click', (e) => {
   $('quoteForm').classList.remove('done');
   $('qbResult').hidden = true;
   document.querySelector('.qb-form').hidden = false;
-  showStep(3);
-});
-
-/* Steps */
-let step = 1;
-const steps = [...document.querySelectorAll('.qb-step')];
-function showStep(n){
-  step = n;
-  steps.forEach(s => s.hidden = +s.dataset.step !== n);
-  document.querySelectorAll('.qb-progress span').forEach((s,i) => s.classList.toggle('on', i < n));
-  $('stepNum').textContent = 'Step ' + n + ' of 3';
-  $('backBtn').hidden = n === 1;
-  $('nextBtn').hidden = n === 3;
-  $('submitBtn').hidden = n !== 3;
-  $('submitNote').hidden = n !== 3;
-  $('formError').style.display = 'none';
   $('quoteForm').scrollIntoView({behavior:'smooth', block:'start'});
-}
-$('nextBtn').addEventListener('click', () => {
-  const fields = [...steps[step-1].querySelectorAll('input, select, textarea')];
-  for (const f of fields){ if (!f.reportValidity()) return; }
-  showStep(step + 1);
 });
-$('backBtn').addEventListener('click', () => showStep(step - 1));
 
 /* Submit → silently POST to Formspree, then show an inline success state */
 let sent = false;
@@ -944,7 +917,6 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xppanjew";
 
 document.getElementById('quoteForm').addEventListener('submit', async function(e){
   e.preventDefault();
-  if (step < 3){ $("nextBtn").click(); return; }
 
   const name = $('qName').value.trim();
   const phone = $('qPhone').value.trim();
@@ -1008,7 +980,7 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
     board.classList.add('done');
     document.querySelector('.qb-form').hidden = true;
     btn.disabled = false;
-    btn.textContent = 'Send updated request';
+    btn.textContent = 'Submit and get updated quote';
     const updated = sent;
     sent = true;
     const result = $('qbResult');
@@ -1025,8 +997,8 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
         <div class="qb-price-note">Estimated price — we'll confirm the final number after a quick follow-up.</div>
         <ul class="qb-breakdown">${rows}</ul>
         <div class="fineprint">Prices are a starting estimate based on the details provided. Final quote may vary after we see the space.</div>
-        <button type="button" class="btn btn-sun" id="editBtn">Change add-ons to lower my price</button>
-        <div class="edit-note">We'll send you the updated request.</div>
+        <button type="button" class="btn btn-sun" id="editBtn">&larr; Back — change my answers</button>
+        <div class="edit-note">Need to change something? Go back, update it, and we'll send you the updated request.</div>
       </div>`;
   } catch (err){
     btn.disabled = false;
