@@ -813,12 +813,8 @@ const PRICING = {
   },
   sqftFreeAllowance: 1000,   // sqft included in base price
   sqftRate: 0.05,            // $ per sqft above the allowance
-  perBedroom: 10,
-  perBathroom: 15,
-  // Per-service overrides of the room rates above.
-  roomRates: {
-    standard: { perBedroom: 15, perBathroom: 20 },
-  },
+  perBedroom: 15,
+  perBathroom: 20,
   addons: {
     pets:    { label: "Pets in home",        price: 15 },
     windows: { label: "Interior windows",    price: 25 },
@@ -869,14 +865,13 @@ function calculate(){
     total += amt;
     lines.push({ label: `+${extraSqft} sqft over ${PRICING.sqftFreeAllowance}`, amount: amt, kind: 'size' });
   }
-  const rates = Object.assign({ perBedroom: PRICING.perBedroom, perBathroom: PRICING.perBathroom }, PRICING.roomRates[type]);
   if (beds > 0){
-    const amt = beds * rates.perBedroom;
+    const amt = beds * PRICING.perBedroom;
     total += amt;
     lines.push({ label: `${beds} bedroom${beds>1?'s':''}`, amount: amt, kind: 'size' });
   }
   if (baths > 0){
-    const amt = baths * rates.perBathroom;
+    const amt = baths * PRICING.perBathroom;
     total += amt;
     lines.push({ label: `${baths} bathroom${baths>1?'s':''}`, amount: amt, kind: 'size' });
   }
