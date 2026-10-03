@@ -1000,6 +1000,8 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
         <button type="button" class="btn btn-sun" id="editBtn">&larr; Back — change my answers</button>
         <div class="edit-note">Need to change something? Go back, update it, and we'll send you the updated request.</div>
       </div>`;
+    // Land on the "request sent" card (top of the board) once the layout has swapped.
+    requestAnimationFrame(() => board.scrollIntoView({behavior:'smooth', block:'start'}));
   } catch (err){
     btn.disabled = false;
     btn.textContent = originalLabel;
