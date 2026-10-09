@@ -487,6 +487,8 @@ $('bookForm').addEventListener('submit', async (e) => {
   if (res && res.status === 201){
     try { sessionStorage.removeItem('spotlessBooking'); } catch (_) {}
     const when = parseDate(data.date || p.date), w = WINDOWS[data.window] || WINDOWS[p.window];
+    // Private per-booking link from Hermes (only ever our own host).
+    const detailsLink = typeof data.detailsUrl === 'string' && data.detailsUrl.startsWith('https://hermes.spotlesslhc.com/webhooks/booking/details/') ? data.detailsUrl : '';
     $('bookingArea').innerHTML = `<div class="panel done" tabindex="-1" id="donePanel">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
       <h2>You're on the schedule, ${esc(name.split(' ')[0])}</h2>
@@ -494,6 +496,8 @@ $('bookForm').addEventListener('submit', async (e) => {
       <p class="win">${w[0]}, ${w[1]}</p>
       ${data.message ? `<p>${esc(data.message)}</p>` : ''}
       ${data.message ? '' : `<p>Bryce will call or text you at ${esc(phone)} to confirm the details, the exact start time and the final price.</p>`}
+      ${detailsLink ? `<p>Help us get ready: add door or gate codes, pets, allergies and parking. It takes a minute and goes straight onto your cleaning.</p>
+      <p><a class="btn btn-primary" href="${esc(detailsLink)}">Add your home details</a></p>` : ''}
       <p>Need to change something before then? Call <a href="tel:19282285899">(928) 228-5899</a>.</p>
       <p><a class="btn btn-ghost" href="/">Back to the homepage</a></p>
     </div>`;
