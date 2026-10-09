@@ -79,6 +79,9 @@
   .nav-drop-menu a+a{border-top:1px solid var(--line);}
   .nav-drop-menu a:hover, .nav-drop-menu a:focus{background:rgba(12,108,122,0.08); color:var(--teal-deep);}
   .nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu{display:block;}
+  .nav-drop.shut .nav-drop-menu{display:none;} /* Esc closed it (nav.js) */
+  .skip{position:absolute; left:8px; top:-60px; z-index:100; background:var(--navy); color:#fff; padding:10px 16px; border-radius:8px; font-weight:700; text-decoration:none;}
+  .skip:focus{top:8px;}
   .nav-cta{
     display:flex; align-items:center; gap:14px;
   }
@@ -117,6 +120,8 @@
     .brand-word{font-size:1rem;}
     .brand-word span{font-size:0.56rem;}
     .phone-pill span.pp-text{display:none;}
+    .phone-pill{min-width:44px; min-height:44px; justify-content:center;}
+    .phone-pill svg{width:22px; height:22px;}
     .nav-cta{gap:8px;}
     .nav-cta .btn{display:none;}
   }
