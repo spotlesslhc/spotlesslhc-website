@@ -31,7 +31,10 @@ async function placeId(env) {
     headers: { "Content-Type": "application/json", "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY, "X-Goog-FieldMask": "places.id" },
     body: JSON.stringify({ textQuery: "Spotless Cleaning, Lake Havasu City, AZ" }),
   });
-  const id = res.ok ? (await res.json()).places?.[0]?.id : null;
+  if (!res.ok) { console.error("Places text search failed", res.status, (await res.text()).slice(0, 300)); return null; }
+  const found = (await res.json()).places || [];
+  if (!found.length) console.error("Places text search found no match");
+  const id = found[0]?.id;
   if (id) await env.REVIEWS.put("google_place_id", id);
   return id;
 }
@@ -47,7 +50,7 @@ async function googleReviews(request, env, ctx) {
     const res = await fetch(PLACES + "places/" + id, {
       headers: { "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY, "X-Goog-FieldMask": "rating,userRatingCount,googleMapsUri,reviews" },
     });
-    if (!res.ok) return json(empty);
+    if (!res.ok) { console.error("Places details failed", res.status, (await res.text()).slice(0, 300)); return json(empty); }
     const p = await res.json();
     const body = {
       rating: p.rating ?? null, count: p.userRatingCount ?? 0, url: p.googleMapsUri ?? null,
@@ -59,7 +62,8 @@ async function googleReviews(request, env, ctx) {
     const out = new Response(JSON.stringify(body), { headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" } });
     ctx.waitUntil(cache.put(key, out.clone()));
     return out;
-  } catch {
+  } catch (e) {
+    console.error("Google reviews error", e.message);
     return json(empty);
   }
 }
