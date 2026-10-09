@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Printable Vacation Rental Turnover Checklist | Spotless Cleaning</title>
+<meta name="description" content="A free one-page vacation rental turnover checklist to print and keep at your property. From Spotless Cleaning, Lake Havasu City, AZ.">
+<link rel="canonical" href="https://spotlesslhc.com/guides/turnover-checklist-printable">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!--
+  Lead magnet, UNGATED for now: anyone with the link can open and print it.
+  Gating by email later (needs Bryce's OK, since it means collecting and storing emails):
+    1. Replace the "Print" toolbar with a one-field form (email + honeypot _gotcha) that POSTs to the
+       same Formspree endpoint as the quote form (https://formspree.io/f/xppanjew) with
+       form: "host checklist", email, _subject: "Host checklist download".
+    2. On a 2xx response, reveal the .sheet (keep it in the HTML, hidden) and save a flag in
+       localStorage so returning visitors skip the form.
+    3. Add a line to the form saying what we'll do with the email (and nothing else), and
+       decide whether those emails get any follow-up before turning it on.
+  It's soft gating (the sheet is in the page source); that's fine for a checklist.
+-->
+<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/service.css">
+<style>
+  body{background:#E9E4DA;}
+  .toolbar{max-width:8.5in; margin:28px auto 18px; padding:0 16px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+  .toolbar p{margin:0; color:#3d5064; font-size:0.95rem; flex:1 1 260px;}
+  .toolbar a.back{color:var(--teal-deep); font-weight:600;}
+  .sheet{background:#fff; max-width:8.5in; margin:0 auto 48px; padding:0.5in 0.55in; box-shadow:var(--shadow); color:var(--ink); font-size:10.5pt; line-height:1.35;}
+  .sh-head{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; border-bottom:3px solid var(--navy); padding-bottom:10px;}
+  .sh-head h1{font-size:22pt; font-weight:600; line-height:1.05;}
+  .sh-head img{height:46px; width:auto;}
+  .fields{display:grid; grid-template-columns:2fr 1fr 1fr; gap:6px 18px; margin:14px 0 4px;}
+  .fields span{display:block; border-bottom:1px solid #9aa6b2; padding-top:16px; font-size:8pt; color:#5b6b7a;}
+  .cols{columns:2; column-gap:0.4in; margin-top:12px;}
+  .sheet .grp{break-inside:avoid; margin:0 0 10px; padding:0;}
+  .grp h2{font-family:'Inter',sans-serif; font-size:9.5pt; font-weight:700; color:var(--teal-deep); margin:0 0 4px; padding-bottom:2px; border-bottom:1px solid var(--line);}
+  .grp ul{list-style:none; margin:0; padding:0;}
+  .grp li{position:relative; padding:2px 0 2px 20px;}
+  .grp li::before{content:""; position:absolute; left:0; top:4px; width:11px; height:11px; border:1.5px solid var(--navy); border-radius:2px;}
+  .notes{border:1px solid #9aa6b2; border-radius:6px; min-height:0.8in; padding:6px 10px; font-size:8pt; color:#5b6b7a; margin-top:4px;}
+  .sh-foot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px 16px; margin-top:12px; padding-top:8px; border-top:1px solid var(--line); font-size:8pt; color:#5b6b7a;}
+  @media screen and (max-width:700px){
+    .sheet{padding:22px 18px; font-size:10pt;}
+    .cols{columns:1;}
+    .fields{grid-template-columns:1fr 1fr;}
+    .fields span:first-child{grid-column:1 / -1;}
+    .sh-head h1{font-size:18pt;}
+  }
+  @page{size:letter; margin:0.4in;}
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none;}
+    .sheet{box-shadow:none; margin:0; padding:0; max-width:none; font-size:9.5pt;}
+    .cols{columns:2;}
+    .fields{grid-template-columns:2fr 1fr 1fr;}
+    .fields span:first-child{grid-column:auto;}
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>A one-page turnover checklist for hosts. Print it, or save it as a PDF from the print dialog. <a class="back" href="/guides/vacation-rental-turnover-checklist">Read the full guide</a></p>
+    <button class="btn btn-primary" type="button" onclick="window.print()">Print checklist</button>
+  </div>
+
+  <main class="sheet">
+    <div class="sh-head">
+      <h1>Vacation rental turnover checklist</h1>
+      <img src="/logo.webp" width="240" height="160" alt="Spotless Cleaning logo">
+    </div>
+    <div class="fields"><span>Property</span><span>Date</span><span>Cleaned by</span></div>
+
+    <div class="cols">
+      <section class="grp"><h2>1. Arrival walk-through</h2><ul>
+        <li>Photos of damage, stains, missing items (before cleaning)</li>
+        <li>Left-behind items collected in one place</li>
+        <li>Repairs noted for the host</li>
+        <li>Windows opened or fans on to air out</li>
+      </ul></section>
+      <section class="grp"><h2>2. Start laundry and trash</h2><ul>
+        <li>Beds stripped, first load started</li>
+        <li>Towels and bath mats collected</li>
+        <li>Trash and recycling out from every room</li>
+        <li>Dishes loaded or washed</li>
+      </ul></section>
+      <section class="grp"><h2>3. Kitchen</h2><ul>
+        <li>Guest food out of fridge; shelves and handles wiped</li>
+        <li>Microwave, stovetop, oven door</li>
+        <li>Coffee maker emptied and wiped</li>
+        <li>Counters, sink, appliance fronts</li>
+        <li>Dishes put away, full sets in cabinets</li>
+        <li>New trash and recycling liners</li>
+      </ul></section>
+      <section class="grp"><h2>4. Bathrooms</h2><ul>
+        <li>Toilet, shower, tub, sink, mirror</li>
+        <li>Hair off drains, floor, shower walls</li>
+        <li>Water spots off faucets and glass</li>
+        <li>Fresh towels and mats, folded the same way</li>
+        <li>Trash emptied, new liner</li>
+      </ul></section>
+      <section class="grp"><h2>5. Bedrooms</h2><ul>
+        <li>Fresh linens, beds made the same way</li>
+        <li>Mattress protectors and pillows checked</li>
+        <li>Nightstands, lamps, headboards dusted</li>
+        <li>Under beds, drawers and closets checked</li>
+      </ul></section>
+      <section class="grp"><h2>6. Living areas</h2><ul>
+        <li>Fans and fixtures dusted, top down</li>
+        <li>Cushions straightened and checked under</li>
+        <li>Remotes wiped and in their spot</li>
+        <li>Switches, handles, slider glass</li>
+      </ul></section>
+      <section class="grp"><h2>7. Outdoor and lake gear</h2><ul>
+        <li>Sand swept from entries, patio, garage</li>
+        <li>Patio furniture wiped; sunscreen marks checked</li>
+        <li>Grill grates and grease tray</li>
+        <li>Coolers and lake gear rinsed, dried, put back</li>
+        <li>Pool and beach towels to laundry</li>
+      </ul></section>
+      <section class="grp"><h2>8. Restock</h2><ul>
+        <li>Toilet paper, paper towels, tissues</li>
+        <li>Hand soap, dish soap, dishwasher detergent</li>
+        <li>Shampoo, conditioner, body wash</li>
+        <li>Trash bags, coffee, kitchen basics</li>
+        <li>Low supplies noted for the host</li>
+      </ul></section>
+      <section class="grp"><h2>9. Floors and final check</h2><ul>
+        <li>Vacuumed and mopped, ending at the door</li>
+        <li>Rooms match the listing photos</li>
+        <li>Thermostat set as the host wants</li>
+        <li>Lights off, windows locked, blinds set</li>
+        <li>Door code or lockbox reset</li>
+        <li>Photo of the finished place sent to host</li>
+      </ul></section>
+      <section class="grp"><h2>Notes for the host</h2>
+        <div class="notes">Damage, repairs, low supplies, left-behind items</div>
+      </section>
+    </div>
+
+    <div class="sh-foot">
+      <span>Spotless Cleaning, Lake Havasu City, AZ</span>
+      <span>Turnovers between checkout and check-in: (928) 228-5899</span>
+      <span>spotlesslhc.com</span>
+    </div>
+  </main>
+</body>
+</html>
