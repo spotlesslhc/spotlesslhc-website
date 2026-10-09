@@ -22,6 +22,7 @@ async function verifyTurnstile(env, token, ip) {
 // The place ID (allowed to be stored) is looked up once and kept in KV; review
 // content is only held in Cloudflare's edge cache for an hour.
 const PLACES = "https://places.googleapis.com/v1/";
+let placesError = null; // last failure reason, returned as "error" so a broken setup is visible
 async function placeId(env) {
   if (env.GOOGLE_PLACE_ID) return env.GOOGLE_PLACE_ID;
   const saved = await env.REVIEWS.get("google_place_id");
@@ -31,9 +32,9 @@ async function placeId(env) {
     headers: { "Content-Type": "application/json", "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY, "X-Goog-FieldMask": "places.id" },
     body: JSON.stringify({ textQuery: "Spotless Cleaning, Lake Havasu City, AZ" }),
   });
-  if (!res.ok) { console.error("Places text search failed", res.status, (await res.text()).slice(0, 300)); return null; }
+  if (!res.ok) { placesError = "search " + res.status + ": " + (await res.text()).slice(0, 300); console.error(placesError); return null; }
   const found = (await res.json()).places || [];
-  if (!found.length) console.error("Places text search found no match");
+  if (!found.length) console.error(placesError = "search found no match");
   const id = found[0]?.id;
   if (id) await env.REVIEWS.put("google_place_id", id);
   return id;
@@ -46,11 +47,11 @@ async function googleReviews(request, env, ctx) {
   if (hit) return hit;
   try {
     const id = await placeId(env);
-    if (!id) return json(empty);
+    if (!id) return json({ ...empty, error: placesError });
     const res = await fetch(PLACES + "places/" + id, {
       headers: { "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY, "X-Goog-FieldMask": "rating,userRatingCount,googleMapsUri,reviews" },
     });
-    if (!res.ok) { console.error("Places details failed", res.status, (await res.text()).slice(0, 300)); return json(empty); }
+    if (!res.ok) { placesError = "details " + res.status + ": " + (await res.text()).slice(0, 300); console.error(placesError); return json({ ...empty, error: placesError }); }
     const p = await res.json();
     const body = {
       rating: p.rating ?? null, count: p.userRatingCount ?? 0, url: p.googleMapsUri ?? null,
@@ -63,8 +64,8 @@ async function googleReviews(request, env, ctx) {
     ctx.waitUntil(cache.put(key, out.clone()));
     return out;
   } catch (e) {
-    console.error("Google reviews error", e.message);
-    return json(empty);
+    console.error(placesError = "error: " + e.message);
+    return json({ ...empty, error: placesError });
   }
 }
 
