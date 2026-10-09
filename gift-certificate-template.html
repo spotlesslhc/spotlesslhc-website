@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift Certificate Template | Spotless Cleaning</title>
+<meta name="robots" content="noindex">
+<!-- Internal tool for Bryce: fill in the fields, then Print, or "Save as PDF" to email or text it. Not linked anywhere public. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/service.css">
+<style>
+  body{background:#E9E4DA;}
+  .toolbar{max-width:10in; margin:28px auto 18px; padding:0 16px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+  .toolbar p{margin:0; color:#3d5064; font-size:0.95rem; flex:1 1 260px;}
+  .cert{position:relative; overflow:hidden; background:var(--sand); max-width:10in; margin:0 auto 48px; aspect-ratio:10 / 6.5; border:10px solid var(--navy); box-shadow:var(--shadow); padding:0.45in 0.55in 0; display:flex; flex-direction:column; color:var(--ink);}
+  .cert::after{content:""; position:absolute; inset:8px; border:1.5px solid var(--sun); pointer-events:none;}
+  .c-top{display:flex; justify-content:space-between; align-items:flex-start; gap:20px;}
+  .c-top img{height:84px; width:auto;}
+  .c-title{font-family:'Fraunces',serif; color:var(--navy); font-size:clamp(2rem,5vw,3.4rem); font-weight:600; line-height:1; margin:0;}
+  .c-title small{display:block; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:600; color:var(--teal-deep); margin-top:10px; letter-spacing:0;}
+  .c-amount{text-align:right;}
+  .c-amount label{display:block; font-size:0.8rem; color:#5b6b7a;}
+  .c-amount input{font-family:'Fraunces',serif; font-size:2.4rem; font-weight:600; color:var(--navy); width:4.2em; text-align:right;}
+  .c-fields{display:grid; grid-template-columns:1fr 1fr; gap:14px 36px; margin-top:auto; margin-bottom:18px; position:relative; z-index:1;}
+  .c-fields label{display:block; font-size:0.8rem; color:#5b6b7a;}
+  input{font:inherit; font-size:1.1rem; color:var(--ink); background:transparent; border:0; border-bottom:1.5px solid rgba(18,49,79,0.4); padding:4px 0; width:100%;}
+  input:focus{outline:none; border-bottom-color:var(--sun-deep);}
+  .c-good{font-size:0.95rem; color:#2b3c4c; margin:0 0 6px; position:relative; z-index:1;}
+  .tbd{background:#FFF1D6; outline:2px dashed var(--sun-deep); border-radius:4px; padding:0 4px; color:#6a4310; font-weight:600;}
+  .c-wave{display:block; width:calc(100% + 1.1in); margin:6px -0.55in 0; height:70px;}
+  .c-band{background:var(--teal-deep); color:#fff; margin:0 -0.55in; padding:10px 0.55in 14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px 16px; font-weight:600; font-size:0.95rem;}
+  @media screen and (max-width:760px){
+    .cert{aspect-ratio:auto; padding:22px 18px 0; border-width:6px;}
+    .c-top{flex-direction:column;} .c-amount{text-align:left;} .c-amount input{text-align:left;}
+    .c-fields{grid-template-columns:1fr; margin-top:24px;}
+    .c-wave{width:calc(100% + 36px); margin:6px -18px 0;} .c-band{margin:0 -18px; padding:10px 18px 14px;}
+  }
+  @page{size:letter landscape; margin:0.35in;}
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none;}
+    .cert{box-shadow:none; margin:0; max-width:none; width:100%; height:7.7in; aspect-ratio:auto; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+    .tbd{outline:0; background:none; color:inherit; font-weight:inherit;}
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <p>Fill in the fields, then print it or choose "Save as PDF" in the print dialog to email or text it. Highlighted text needs Bryce's wording before first use.</p>
+    <button class="btn btn-primary" type="button" onclick="window.print()">Print or save as PDF</button>
+  </div>
+
+  <main class="cert">
+    <div class="c-top">
+      <div>
+        <img src="/logo.webp" width="240" height="160" alt="Spotless Cleaning logo">
+        <h1 class="c-title">Gift certificate<small>Relax, We'll Handle the Mess.</small></h1>
+      </div>
+      <div class="c-amount"><label for="amt">Value</label><input id="amt" value="$" aria-label="Certificate value"></div>
+    </div>
+
+    <div class="c-fields">
+      <div><label for="to">For</label><input id="to"></div>
+      <div><label for="from">From</label><input id="from"></div>
+      <div><label for="no">Certificate number</label><input id="no"></div>
+      <div><label for="issued">Issued</label><input id="issued"></div>
+    </div>
+    <p class="c-good">Good toward any Spotless Cleaning service in Lake Havasu City. Call or text to book. <span class="tbd">[Expiration and terms: Bryce to decide, after checking Arizona gift-certificate rules]</span></p>
+
+    <svg class="c-wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0,32 C200,60 400,0 600,24 C800,48 1000,10 1200,30 L1200,60 L0,60 Z" fill="#0C6C7A"/></svg>
+    <div class="c-band"><span>Spotless Cleaning</span><span>(928) 228-5899</span><span>spotlesslhc.com</span></div>
+  </main>
+</body>
+</html>
