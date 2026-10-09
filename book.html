@@ -254,6 +254,7 @@
             <div class="field"><label for="bAddress">Address of the place to clean *</label><input type="text" id="bAddress" required autocomplete="street-address" placeholder="Street address, Lake Havasu City"></div>
             <div class="field"><label for="bEmail">Email</label><input type="email" id="bEmail" autocomplete="email"></div>
             <div class="field"><label for="bNotes">Anything else we should know?</label><textarea id="bNotes" placeholder="Gate codes, pets, parking, special requests..."></textarea></div>
+            <div class="field"><label for="bReferredBy">Referred by (optional)</label><input type="text" id="bReferredBy" maxlength="80" autocomplete="off" placeholder="Name of the friend who sent you"></div>
             <div class="msg err" id="formMsg" role="alert" hidden></div>
             <div class="submit-row">
               <button type="submit" class="btn btn-primary" id="bookBtn">Book this cleaning</button>
@@ -292,6 +293,7 @@
           <li><a href="/recurring-house-cleaning">Recurring house cleaning</a></li>
           <li><a href="/commercial-cleaning">Commercial &amp; office cleaning</a></li>
           <li><a href="/#quote">Get a Quote</a></li>
+          <li><a href="/referrals">Refer a friend</a></li>
         </ul>
       </div>
     </div>
@@ -330,7 +332,7 @@ const job = {
   addons: src ? String(src.addons || '').split(',').filter(k => ADDON_KEYS.includes(k)) : [],
   frequency: PRICING.frequency[(src || {}).frequency] ? src.frequency : 'once',
 };
-for (const [id, k] of [['bName','name'],['bPhone','phone'],['bEmail','email'],['bAddress','address'],['bNotes','notes']]) if (saved[k]) $(id).value = saved[k];
+for (const [id, k] of [['bName','name'],['bPhone','phone'],['bEmail','email'],['bAddress','address'],['bNotes','notes'],['bReferredBy','referredBy']]) if (saved[k]) $(id).value = saved[k];
 
 /* ---------- Summary + live price ---------- */
 function render(){
@@ -469,7 +471,7 @@ $('bookForm').addEventListener('submit', async (e) => {
   const body = {
     date: p.date, window: p.window, type: job.type, frequency: job.frequency,
     sqft: job.sqft, beds: job.beds, baths: job.baths, addons: job.addons, laundryLoads: job.laundry,
-    estimate: q.total, name, phone, email: $('bEmail').value.trim(), address, notes: $('bNotes').value.trim(),
+    estimate: q.total, name, phone, email: $('bEmail').value.trim(), address, notes: $('bNotes').value.trim(), referredBy: $('bReferredBy').value.trim(),
     website: $('bWebsite').value,
   };
 

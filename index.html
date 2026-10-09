@@ -729,6 +729,11 @@
             <textarea id="qNotes" name="notes" placeholder="Gate codes, special requests, preferred dates..."></textarea>
           </div>
 
+          <div class="field">
+            <label for="qReferredBy">Referred by (optional)</label>
+            <input type="text" id="qReferredBy" name="referredBy" maxlength="80" autocomplete="off" placeholder="Name of the friend who sent you">
+          </div>
+
           </div>
 
           <div class="qb-nav">
@@ -831,6 +836,7 @@
           <li><a href="/recurring-house-cleaning">Recurring house cleaning</a></li>
           <li><a href="/commercial-cleaning">Commercial &amp; office cleaning</a></li>
           <li><a href="#quote">Get a Quote</a></li>
+          <li><a href="/referrals">Refer a friend</a></li>
         </ul>
       </div>
     </div>
@@ -917,6 +923,7 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
     recurring_discount: discountText,
     estimated_price: money(total),
     notes: notes || "(none)",
+    referredBy: $('qReferredBy').value.trim() || "(none)",
     _gotcha: $("qGotcha").value,
     update: sent ? "Yes — customer revised their add-ons after seeing the estimate" : "No",
     _subject: `${sent ? 'UPDATED quote request' : 'Quote request'} from ${name} — Spotless Cleaning website`,
@@ -956,7 +963,7 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
       frequency: $('qFreq').value, laundry: String(laundryLoads),
       addons: ADDON_KEYS.filter(k => document.querySelector(`[name=${k}]`).checked).join(','),
     };
-    try { sessionStorage.setItem('spotlessBooking', JSON.stringify({ ...job, name, phone, email, address, notes })); } catch (_) {}
+    try { sessionStorage.setItem('spotlessBooking', JSON.stringify({ ...job, name, phone, email, address, notes, referredBy: $('qReferredBy').value.trim() })); } catch (_) {}
     const bookUrl = '/book?' + new URLSearchParams(job);
     const updated = sent;
     sent = true;
