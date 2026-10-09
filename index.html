@@ -103,6 +103,15 @@
   .brand-word span{display:block; font-family:'Inter',sans-serif; font-weight:600; font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--teal-deep); margin-top:2px;}
   .nav-links{display:flex; align-items:center; gap:28px;}
   .nav-links a{font-size:0.92rem; font-weight:600; text-decoration:none; color:var(--navy);}
+  /* Services dropdown in the desktop menu: opens on hover or keyboard focus. */
+  .nav-drop{position:relative;}
+  .nav-drop > a::after{content:" ▾"; font-size:0.75em;}
+  .nav-drop-menu{display:none; position:absolute; left:-18px; top:100%; padding-top:12px; z-index:50;}
+  .nav-drop-menu div{display:flex; flex-direction:column; min-width:250px; background:var(--sand); border:1px solid var(--line); border-radius:12px; box-shadow:0 12px 30px -12px rgba(11,35,56,.4); overflow:hidden;}
+  .nav-drop-menu a{display:block; padding:12px 18px;}
+  .nav-drop-menu a+a{border-top:1px solid var(--line);}
+  .nav-drop-menu a:hover, .nav-drop-menu a:focus{background:rgba(12,108,122,0.08); color:var(--teal-deep);}
+  .nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu{display:block;}
   .nav-cta{
     display:flex; align-items:center; gap:14px;
   }
@@ -406,7 +415,13 @@
       <span class="brand-word">Spotless Cleaning<span>Lake Havasu City</span></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#services">Services</a>
+      <div class="nav-drop"><a href="#services" aria-haspopup="true">Services</a>
+        <div class="nav-drop-menu"><div>
+          <a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a>
+          <a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a>
+          <a href="/recurring-house-cleaning">Recurring house cleaning</a>
+          <a href="/commercial-cleaning">Commercial &amp; office cleaning</a>
+        </div></div></div>
       <a href="#why">Why Us</a>
       <a href="#quote">Get a Quote</a>
       <a href="#area">Service Area</a>
