@@ -2,6 +2,6 @@
   "name": "spotlesslhc-website",
   "main": "worker.js",
   "compatibility_date": "2026-09-30",
-  "assets": { "directory": "./", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
+  "assets": { "directory": "./", "binding": "ASSETS", "run_worker_first": ["/api/*"], "not_found_handling": "404-page" },
   "kv_namespaces": [{ "binding": "REVIEWS" }]
 }

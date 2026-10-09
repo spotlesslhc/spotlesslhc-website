@@ -112,6 +112,9 @@
   .nav-drop-menu a+a{border-top:1px solid var(--line);}
   .nav-drop-menu a:hover, .nav-drop-menu a:focus{background:rgba(12,108,122,0.08); color:var(--teal-deep);}
   .nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu{display:block;}
+  .nav-drop.shut .nav-drop-menu{display:none;} /* Esc closed it (nav.js) */
+  .skip{position:absolute; left:8px; top:-60px; z-index:100; background:var(--navy); color:#fff; padding:10px 16px; border-radius:8px; font-weight:700; text-decoration:none;}
+  .skip:focus{top:8px;}
   .nav-cta{
     display:flex; align-items:center; gap:14px;
   }
@@ -150,6 +153,8 @@
     .brand-word{font-size:1rem;}
     .brand-word span{font-size:0.56rem;}
     .phone-pill span.pp-text{display:none;}
+    .phone-pill{min-width:44px; min-height:44px; justify-content:center;}
+    .phone-pill svg{width:22px; height:22px;}
     .nav-cta{gap:8px;}
     .nav-cta .btn{display:none;}
   }
@@ -374,8 +379,8 @@
   .star-input{border:0; padding:0; margin:0 0 16px;}
   .star-input .rate{display:flex; flex-direction:row-reverse; justify-content:flex-end; gap:4px;}
   .star-input input{position:absolute; opacity:0; width:1px; height:1px;}
-  .star-input label{font-size:2rem; line-height:1; color:#c9d2db; cursor:pointer; padding:0 2px;}
-  .star-input input:checked ~ label, .star-input label:hover, .star-input label:hover ~ label{color:var(--sun);}
+  .star-input label{font-size:2rem; line-height:1; color:#6b7b8c; cursor:pointer; padding:0 2px;}
+  .star-input input:checked ~ label, .star-input label:hover, .star-input label:hover ~ label{color:var(--sun); -webkit-text-stroke:1px var(--navy);}
   .star-input input:focus-visible + label{outline:3px solid var(--teal-deep); outline-offset:2px; border-radius:6px;}
   .consent{display:flex; gap:10px; align-items:flex-start; font-size:0.85rem; color:#3d5064; margin-bottom:16px;}
   .consent input{margin-top:4px;}
@@ -412,15 +417,16 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#top">Skip to main content</a>
 
 <header class="site">
   <div class="nav">
     <a class="brand" href="#top">
-      <img src="/logo.webp" width="480" height="320" alt="Spotless Cleaning logo">
+      <img src="/logo.webp" width="240" height="160" alt="Spotless Cleaning logo">
       <span class="brand-word">Spotless Cleaning<span>Lake Havasu City</span></span>
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <div class="nav-drop"><a href="#services" aria-haspopup="true">Services</a>
+      <div class="nav-drop"><a href="#services">Services</a>
         <div class="nav-drop-menu"><div>
           <a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a>
           <a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a>
@@ -810,7 +816,7 @@
     <div class="foot-grid">
       <div>
         <div class="foot-brand">
-          <img src="/logo.webp" width="480" height="320" alt="Spotless Cleaning logo">
+          <img src="/logo.webp" width="240" height="160" alt="Spotless Cleaning logo">
           <span class="fb-word">Spotless Cleaning</span>
         </div>
         <p>Licensed &amp; insured residential and commercial cleaning, locally owned and operated in Lake Havasu City, AZ. Vacation rental turnovers also available.</p>
@@ -1039,5 +1045,6 @@ const GOOGLE_REVIEW_URL = "https://g.page/r/CbJRlBBCehRgEBM/review";
   });
 })();
 </script>
+<script src="/nav.js" defer></script>
 </body>
 </html>
