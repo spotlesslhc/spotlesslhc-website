@@ -17,9 +17,57 @@ async function verifyTurnstile(env, token, ip) {
   return (await res.json()).success === true;
 }
 
+// Google reviews via the Places API (New). Off until the GOOGLE_PLACES_KEY secret is set;
+// without it the endpoint returns no reviews and the page shows only its own.
+// The place ID (allowed to be stored) is looked up once and kept in KV; review
+// content is only held in Cloudflare's edge cache for an hour.
+const PLACES = "https://places.googleapis.com/v1/";
+async function placeId(env) {
+  if (env.GOOGLE_PLACE_ID) return env.GOOGLE_PLACE_ID;
+  const saved = await env.REVIEWS.get("google_place_id");
+  if (saved) return saved;
+  const res = await fetch(PLACES + "places:searchText", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY, "X-Goog-FieldMask": "places.id" },
+    body: JSON.stringify({ textQuery: "Spotless Cleaning, Lake Havasu City, AZ" }),
+  });
+  const id = res.ok ? (await res.json()).places?.[0]?.id : null;
+  if (id) await env.REVIEWS.put("google_place_id", id);
+  return id;
+}
+async function googleReviews(request, env, ctx) {
+  const empty = { rating: null, count: 0, url: null, reviews: [] };
+  if (!env.GOOGLE_PLACES_KEY) return json(empty);
+  const cache = caches.default, key = new Request(new URL("/api/google-reviews", request.url));
+  const hit = await cache.match(key);
+  if (hit) return hit;
+  try {
+    const id = await placeId(env);
+    if (!id) return json(empty);
+    const res = await fetch(PLACES + "places/" + id, {
+      headers: { "X-Goog-Api-Key": env.GOOGLE_PLACES_KEY, "X-Goog-FieldMask": "rating,userRatingCount,googleMapsUri,reviews" },
+    });
+    if (!res.ok) return json(empty);
+    const p = await res.json();
+    const body = {
+      rating: p.rating ?? null, count: p.userRatingCount ?? 0, url: p.googleMapsUri ?? null,
+      reviews: (p.reviews || []).map((r) => ({
+        name: clean(r.authorAttribution?.displayName, 60), authorUrl: r.authorAttribution?.uri || null,
+        rating: r.rating, text: clean(r.text?.text || r.originalText?.text, 1200), when: clean(r.relativePublishTimeDescription, 40),
+      })).filter((r) => r.name && r.text),
+    };
+    const out = new Response(JSON.stringify(body), { headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=3600" } });
+    ctx.waitUntil(cache.put(key, out.clone()));
+    return out;
+  } catch {
+    return json(empty);
+  }
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (request.method === "GET" && url.pathname === "/api/google-reviews") return googleReviews(request, env, ctx);
     if (!url.pathname.startsWith("/api/reviews")) return env.ASSETS.fetch(request);
 
     const list = async () => JSON.parse((await env.REVIEWS.get("list")) || "[]");

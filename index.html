@@ -370,6 +370,11 @@
   .review-card p{margin:10px 0 12px; color:#3d5064;}
   .review-card cite{font-style:normal; font-weight:700; color:var(--navy); font-size:0.9rem;}
   .review-actions [hidden]{display:none;}
+  .review-card cite a{color:inherit;}
+  .review-src{display:block; margin-top:4px; font-size:0.8rem; color:#5b6b7b;}
+  .google-summary{text-align:center; color:#3d5064; margin:-10px auto 22px;}
+  .google-summary[hidden]{display:none;}
+  .google-summary strong{color:var(--navy);}
   .review-empty{text-align:center; color:#3d5064; max-width:560px; margin:0 auto 30px;}
   .review-actions{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:34px;}
   .review-form{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:30px; max-width:640px; margin:0 auto;}
@@ -587,6 +592,7 @@
         <span class="eyebrow">Reviews</span>
         <h2>What our customers say</h2>
       </div>
+      <p class="google-summary" id="googleSummary" hidden></p>
       <div class="reviews-grid" id="reviewsGrid"></div>
       <p class="review-empty" id="reviewsEmpty" hidden>No reviews yet. Had a cleaning with us? Be the first to share how it went.</p>
       <div class="review-actions">
@@ -1016,10 +1022,27 @@ const GOOGLE_REVIEW_URL = "https://g.page/r/CbJRlBBCehRgEBM/review";
   };
   const gb = document.getElementById('googleReviewBtn');
   if (GOOGLE_REVIEW_URL){ gb.href = GOOGLE_REVIEW_URL; gb.hidden = false; }
-  fetch('/api/reviews').then(r => r.ok ? r.json() : []).catch(() => []).then(list => {
+  // Google reviews (worker.js /api/google-reviews) first, then reviews left on this site.
+  const gcard = (v) => {
+    const n = Math.max(1, Math.min(5, parseInt(v.rating) || 5));
+    const who = v.authorUrl && /^https:\/\//.test(v.authorUrl) ? '<a href="' + esc(v.authorUrl) + '" target="_blank" rel="noopener nofollow">' + esc(v.name) + '</a>' : esc(v.name);
+    return '<div class="review-card"><div class="stars" role="img" aria-label="' + n + ' out of 5 stars">' + '★'.repeat(n) + '☆'.repeat(5 - n) + '</div><p>' + esc(v.text) + '</p><cite>' + who + '</cite><span class="review-src">' + (v.when ? esc(v.when) + ', on Google' : 'On Google') + '</span></div>';
+  };
+  Promise.all([
+    fetch('/api/google-reviews').then(r => r.ok ? r.json() : null).catch(() => null),
+    fetch('/api/reviews').then(r => r.ok ? r.json() : []).catch(() => [])
+  ]).then(([g, list]) => {
     const grid = document.getElementById('reviewsGrid');
-    if (!Array.isArray(list) || !list.length){ document.getElementById('reviewsEmpty').hidden = false; return; }
-    grid.innerHTML = list.map(card).join('');
+    const greviews = g && Array.isArray(g.reviews) ? g.reviews : [];
+    if (!Array.isArray(list)) list = [];
+    if (g && g.rating && g.count){
+      const s = document.getElementById('googleSummary');
+      s.innerHTML = '<strong>' + Number(g.rating).toFixed(1) + ' ★</strong> on Google from ' + g.count + ' review' + (g.count === 1 ? '' : 's')
+        + (g.url && /^https:\/\//.test(g.url) ? '. <a href="' + esc(g.url) + '" target="_blank" rel="noopener">See them all on Google</a>' : '');
+      s.hidden = false;
+    }
+    if (!greviews.length && !list.length){ document.getElementById('reviewsEmpty').hidden = false; return; }
+    grid.innerHTML = greviews.map(gcard).join('') + list.map(card).join('');
   });
   document.getElementById('reviewForm').addEventListener('submit', async function(e){
     e.preventDefault();
