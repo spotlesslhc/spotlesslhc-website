@@ -302,6 +302,11 @@
   .checks .addons li{padding:6px 12px 6px 9px; display:inline-flex; align-items:center; gap:7px; border-radius:999px; background:var(--white); border:1px solid var(--line); font-size:0.88rem; font-weight:600; color:var(--navy);}
   .checks .addons li::before{content:none;}
   .addons .i{width:18px; height:18px;}
+  /* Breathing room for the icon list (Bryce 2026-10-09: it read as crowded). */
+  .checks.ic{gap:26px; margin-top:28px;}
+  .checks.ic > li{line-height:1.6;}
+  .checks.ic .addons{gap:10px 12px; margin-top:16px; padding-bottom:4px;}
+  .checks.ic .addons li{padding:8px 15px 8px 11px; font-weight:500; line-height:1.2;}
   .ic-recurring{--c:var(--tint-recurring);} .ic-vacation{--c:var(--tint-vacation);} .ic-move{--c:var(--tint-move);} .ic-commercial{--c:var(--tint-commercial);}
   .service-card .icon{background:var(--c, var(--navy));}
   .service-card .icon .i{width:24px; height:24px; stroke:var(--navy);}
