@@ -29,11 +29,14 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much do recurring plans save?","acceptedAnswer":{"@type":"Answer","text":"Compared with a one-time clean, monthly visits save 5%, every-2-weeks visits save 10% and weekly visits save 15% per visit."}},{"@type":"Question","name":"Do you offer weekly and biweekly cleaning?","acceptedAnswer":{"@type":"Answer","text":"Yes. We offer weekly and every-2-weeks cleaning, and monthly too. The more often we visit, the more you save per visit."}},{"@type":"Question","name":"Can I add extras to a visit?","acceptedAnswer":{"@type":"Answer","text":"Yes. Pets in the home, interior windows, dishes, interior fridge, interior oven and laundry (per load) are add-ons. Select them in the quote form and they are included in your estimate."}},{"@type":"Question","name":"Do you bring your own supplies?","acceptedAnswer":{"@type":"Answer","text":"Yes. We bring our own cleaning supplies."}},{"@type":"Question","name":"Are you licensed and insured?","acceptedAnswer":{"@type":"Answer","text":"Yes. Spotless Cleaning is licensed and insured, and locally owned and operated in Lake Havasu City, AZ."}}]}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://spotlesslhc.com/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://spotlesslhc.com/#services"},{"@type":"ListItem","position":3,"name":"Recurring house cleaning","item":"https://spotlesslhc.com/recurring-house-cleaning"}]}
+</script>
 <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/service.css">
 </head>
-<body>
+<body class="svc svc-recurring">
 
 <header class="site">
   <div class="nav">
@@ -46,7 +49,7 @@
         <div class="nav-drop-menu"><div>
           <a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a>
           <a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a>
-          <a href="/recurring-house-cleaning">Recurring house cleaning</a>
+          <a href="/recurring-house-cleaning" aria-current="page">Recurring house cleaning</a>
           <a href="/commercial-cleaning">Commercial &amp; office cleaning</a>
         </div></div></div>
       <a href="/#why">Why Us</a>
@@ -63,6 +66,10 @@
         <summary aria-label="Menu">Menu</summary>
         <nav aria-label="Mobile">
           <a onclick="this.closest('details').open=false" href="/#services">Services</a>
+          <a onclick="this.closest('details').open=false" href="/vacation-rental-cleaning">&nbsp;&nbsp;Vacation rental &amp; Airbnb</a>
+          <a onclick="this.closest('details').open=false" href="/move-in-move-out-cleaning">&nbsp;&nbsp;Move-in &amp; move-out</a>
+          <a onclick="this.closest('details').open=false" href="/recurring-house-cleaning" aria-current="page">&nbsp;&nbsp;Recurring house cleaning</a>
+          <a onclick="this.closest('details').open=false" href="/commercial-cleaning">&nbsp;&nbsp;Commercial &amp; office</a>
           <a onclick="this.closest('details').open=false" href="/#why">Why Us</a>
           <a onclick="this.closest('details').open=false" href="/#quote">Get a Quote</a>
           <a onclick="this.closest('details').open=false" href="/#area">Service Area</a>
@@ -76,8 +83,8 @@
 
   <section class="hero">
     <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Lake Havasu City, AZ · Licensed &amp; Insured</span>
+      <div class="hero-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/#services">Services</a></li><li aria-current="page">Recurring house cleaning</li></ol></nav>
         <h1>Recurring house cleaning in Lake Havasu City</h1>
         <p class="lead">A standing weekly, every-2-weeks or monthly plan that keeps your home consistently spotless. The more consistent your schedule, the more you save per visit.</p>
         <div class="hero-ctas">
@@ -85,6 +92,7 @@
           <a class="btn btn-ghost" href="tel:19282285899" style="border-color:rgba(255,255,255,0.5); color:#fff;">Call (928) 228-5899</a>
         </div>
       </div>
+      <svg class="hero-art" viewBox="0 0 320 280" aria-hidden="true" focusable="false"><defs><clipPath id="plate"><path d="M20 264V160a140 140 0 0 1 280 0v104a16 16 0 0 1-16 16H36a16 16 0 0 1-16-16z"/></clipPath></defs><path class="art-plate" d="M20 264V160a140 140 0 0 1 280 0v104a16 16 0 0 1-16 16H36a16 16 0 0 1-16-16z"/><g clip-path="url(#plate)" fill="none" stroke="#12314F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="242" cy="86" r="22" fill="#F2A93B"/><path d="M40 240h240"/><rect x="190" y="98" width="18" height="34" fill="#fff"/><rect x="100" y="140" width="120" height="100" fill="#fff"/><path class="art-accent" d="M84 148 160 84l76 64z"/><rect x="146" y="188" width="28" height="52" rx="3" fill="#F2A93B"/><path d="M166 214h.01"/><rect x="112" y="162" width="24" height="24" fill="#DCEEF6"/><path d="M124 162v24M112 174h24"/><rect x="184" y="162" width="24" height="24" fill="#DCEEF6"/><path d="M196 162v24M184 174h24"/><path class="art-accent" d="M56 240a18 18 0 0 1 36 0zM228 240a18 18 0 0 1 36 0z"/><path class="spark" fill="#F2A93B" stroke-width="3" d="M70 106c2.04 9 3 9.96 12 12c-9 2.04 -9.96 3 -12 12c-2.04 -9 -3 -9.96 -12 -12c9 -2.04 9.96 -3 12 -12z"/><path class="spark d2" fill="#F2A93B" stroke-width="3" d="M264 143c1.53 6.75 2.25 7.47 9 9c-6.75 1.53 -7.47 2.25 -9 9c-1.53 -6.75 -2.25 -7.47 -9 -9c6.75 -1.53 7.47 -2.25 9 -9z"/></g></svg>
       <div class="ladder-card" aria-label="Recurring cleaning savings">
         <span class="lc-label">The more consistent, the more you save</span>
         <div class="lc-rows">
@@ -106,12 +114,13 @@
       <div>
         <h2>What you get</h2>
         <p>Consistency is the whole model: the more regularly we clean for you, the better the price and the better we know your space.</p>
-        <ul class="checks">
-          <li>A standing visit on the schedule you pick: weekly, every 2 weeks or monthly.</li>
-          <li>A lower price per visit than a one-time clean: 15% off weekly, 10% off every 2 weeks and 5% off monthly.</li>
-          <li>The same detail-first checklist every visit.</li>
-          <li>Add-ons when you want them: pets in the home, interior windows, dishes, interior fridge, interior oven and laundry (per load).</li>
-          <li>Our own cleaning supplies, brought to every clean.</li>
+        <ul class="checks ic">
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#calendar"/></svg>A standing visit on the schedule you pick: weekly, every 2 weeks or monthly.</li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#tag"/></svg>A lower price per visit than a one-time clean: 15% off weekly, 10% off every 2 weeks and 5% off monthly.</li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#clipboard"/></svg>The same detail-first checklist every visit.</li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#plus"/></svg>Add-ons, picked in the quote form and included in your estimate:
+            <ul class="addons"><li><svg class="i" aria-hidden="true"><use href="/icons.svg#paw"/></svg>Pets in the home</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#window"/></svg>Interior windows</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#dishes"/></svg>Dishes</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#fridge"/></svg>Interior fridge</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#oven"/></svg>Interior oven</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#laundry"/></svg>Laundry (per load)</li></ul></li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#bucket"/></svg>Our own cleaning supplies, brought to every clean.</li>
         </ul>
       </div>
       <div class="who">
@@ -121,6 +130,17 @@
           <li>Anyone who wants a clean home on a set schedule instead of a one-time catch-up</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 id="how-h">How it works</h2>
+      <ol class="steps">
+        <li><h3>Get an instant estimate</h3><p>Answer a few quick questions in the quote form and pick weekly, every 2 weeks or monthly to see the savings applied. Or call <a href="tel:19282285899">(928) 228-5899</a>, daily 9 AM to 9 PM.</p></li>
+        <li><h3>We confirm the details</h3><p>We follow up to go over your space and confirm the final price. Your estimate is a starting figure, and it may vary once we see the space.</p></li>
+        <li><h3>We clean on your schedule</h3><p>Your standing visit goes on the calendar weekly, every 2 weeks or monthly, with the same detail-first checklist every time.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -175,18 +195,21 @@
       <div class="services-grid">
         <div class="service-card">
           <span class="tag">Vacation Rentals</span>
+          <div class="icon ic-vacation"><svg class="i" aria-hidden="true"><use href="/icons.svg#rental"/></svg></div>
           <h3>Vacation rental &amp; Airbnb cleaning</h3>
           <p>Guest-ready turnovers between checkout and check-in.</p>
           <a class="more" href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning &rarr;</a>
         </div>
         <div class="service-card">
           <span class="tag">Moving</span>
+          <div class="icon ic-move"><svg class="i" aria-hidden="true"><use href="/icons.svg#box"/></svg></div>
           <h3>Move-in &amp; move-out cleaning</h3>
           <p>A one-time reset for a home on either side of a move.</p>
           <a class="more" href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning &rarr;</a>
         </div>
         <div class="service-card">
           <span class="tag">Businesses</span>
+          <div class="icon ic-commercial"><svg class="i" aria-hidden="true"><use href="/icons.svg#store"/></svg></div>
           <h3>Commercial &amp; office cleaning</h3>
           <p>After-hours cleaning for offices and small storefronts.</p>
           <a class="more" href="/commercial-cleaning">Commercial &amp; office cleaning &rarr;</a>
@@ -220,7 +243,7 @@
         <ul>
           <li><a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a></li>
           <li><a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a></li>
-          <li><a href="/recurring-house-cleaning">Recurring house cleaning</a></li>
+          <li><a href="/recurring-house-cleaning" aria-current="page">Recurring house cleaning</a></li>
           <li><a href="/commercial-cleaning">Commercial &amp; office cleaning</a></li>
           <li><a href="/#quote">Get a Quote</a></li>
         </ul>
