@@ -289,6 +289,9 @@
   #qbResult{display:contents;} #qbResult[hidden]{display:none;}
   .qb-estimate .btn{margin-top:16px; align-self:flex-start;}
   .qb-estimate .edit-note{font-size:0.78rem; color:rgba(255,255,255,0.65); margin-top:8px;}
+  .qb-estimate .book-now{font-size:1.02rem; padding:15px 28px;}
+  .btn-ghost-light{background:transparent; color:var(--white); border-color:rgba(255,255,255,0.45);}
+  .btn-ghost-light:hover{background:rgba(255,255,255,0.1);}
   .qb-nav{display:flex; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;}
   .qb-form h3{font-size:1.3rem; margin-bottom:4px;}
   .qb-form > p.hint{color:#5a6b7c; font-size:0.9rem; margin:0 0 26px;}
@@ -838,43 +841,11 @@
   </div>
 </footer>
 
-
+<script src="/pricing.js"></script>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ============================================================
-   PRICING CONFIG — edit these numbers any time to match your
-   actual rates. All prices are in whole USD.
-   ============================================================ */
-const PRICING = {
-  base: {
-    standard:    { label: "Standard Cleaning",                  price: 90  },
-    deep:        { label: "Deep Cleaning",                      price: 150 },
-    moveinout:   { label: "Move-In / Move-Out Cleaning",        price: 175 },
-    turnover:    { label: "Vacation Rental / Airbnb Turnover",  price: 85  },
-    commercial:  { label: "Commercial Cleaning (starting at)",  price: 120 },
-  },
-  sqftFreeAllowance: 1000,   // sqft included in base price
-  sqftRate: 0.05,            // $ per sqft above the allowance
-  perBedroom: 15,
-  perBathroom: 20,
-  addons: {
-    pets:    { label: "Pets in home",        price: 15 },
-    windows: { label: "Interior windows",    price: 25 },
-    dishes:  { label: "Dishes",              price: 10 },
-    fridge:  { label: "Fridge (interior)",   price: 20 },
-    oven:    { label: "Oven (interior)",     price: 20 },
-    laundry: { label: "Laundry (per load)",  price: 10 }, // multiplied by load count
-  },
-  // Recurring-frequency discount, applied to the full visit price.
-  // The more consistent the schedule, the bigger the per-visit discount.
-  frequency: {
-    once:     { label: "One-time",          discount: 0    },
-    monthly:  { label: "Monthly",           discount: 0.05 },
-    biweekly: { label: "Every 2 weeks",     discount: 0.10 },
-    weekly:   { label: "Weekly",            discount: 0.15 },
-  }
-};
+/* Prices and the estimate math live in /pricing.js (shared with /book). */
 
 const $ = (id) => document.getElementById(id);
 const money = (n) => "$" + n.toLocaleString("en-US", {maximumFractionDigits:0});
@@ -893,57 +864,11 @@ $('laundryMinus').addEventListener('click', () => {
 });
 
 function calculate(){
-  const type = $('qType').value;
-  const sqft = Math.max(parseInt($('qSqft').value) || 0, 0);
-  const beds = Math.max(parseInt($('qBeds').value) || 0, 0);
-  const baths = Math.max(parseInt($('qBaths').value) || 0, 0);
-
-  const svc = PRICING.base[type];
-  let total = svc.price;
-  const lines = [{ label: svc.label, amount: svc.price, kind: 'base' }];
-
-  const extraSqft = Math.max(sqft - PRICING.sqftFreeAllowance, 0);
-  if (extraSqft > 0){
-    const amt = Math.round(extraSqft * PRICING.sqftRate);
-    total += amt;
-    lines.push({ label: `+${extraSqft} sqft over ${PRICING.sqftFreeAllowance}`, amount: amt, kind: 'size' });
-  }
-  if (beds > 0){
-    const amt = beds * PRICING.perBedroom;
-    total += amt;
-    lines.push({ label: `${beds} bedroom${beds>1?'s':''}`, amount: amt, kind: 'size' });
-  }
-  if (baths > 0){
-    const amt = baths * PRICING.perBathroom;
-    total += amt;
-    lines.push({ label: `${baths} bathroom${baths>1?'s':''}`, amount: amt, kind: 'size' });
-  }
-
-  ['pets','windows','dishes','fridge','oven'].forEach(key => {
-    const el = document.querySelector(`[name=${key}]`);
-    if (el && el.checked){
-      const a = PRICING.addons[key];
-      total += a.price;
-      lines.push({ label: a.label, amount: a.price, kind: 'addon' });
-    }
+  return quote({
+    type: $('qType').value, sqft: $('qSqft').value, beds: $('qBeds').value, baths: $('qBaths').value,
+    frequency: $('qFreq').value, laundry: laundryLoads,
+    addons: ADDON_KEYS.filter(key => { const el = document.querySelector(`[name=${key}]`); return el && el.checked; }),
   });
-
-  if (laundryLoads > 0){
-    const amt = laundryLoads * PRICING.addons.laundry.price;
-    total += amt;
-    lines.push({ label: `Laundry \u00d7 ${laundryLoads}`, amount: amt, kind: 'addon' });
-  }
-
-  const freqKey = $('qFreq').value;
-  const freq = PRICING.frequency[freqKey];
-  let discountAmt = 0;
-  if (freq.discount > 0){
-    discountAmt = Math.round(total * freq.discount);
-    total -= discountAmt;
-    lines.push({ label: `${freq.label} recurring discount`, amount: -discountAmt, kind: 'discount' });
-  }
-
-  return { total, lines, type: svc.label, frequency: freq.label };
 }
 
 $('qbResult').addEventListener('click', (e) => {
@@ -1024,6 +949,15 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
     document.querySelector('.qb-form').hidden = true;
     btn.disabled = false;
     btn.textContent = 'Submit and get updated quote';
+    // Hand the job to /book: job details in the URL (so a copied link still works),
+    // everything typed in by hand (contact, address, notes) in sessionStorage only.
+    const job = {
+      type: $('qType').value, sqft: $('qSqft').value, beds: $('qBeds').value, baths: $('qBaths').value,
+      frequency: $('qFreq').value, laundry: String(laundryLoads),
+      addons: ADDON_KEYS.filter(k => document.querySelector(`[name=${k}]`).checked).join(','),
+    };
+    try { sessionStorage.setItem('spotlessBooking', JSON.stringify({ ...job, name, phone, email, address, notes })); } catch (_) {}
+    const bookUrl = '/book?' + new URLSearchParams(job);
     const updated = sent;
     sent = true;
     const result = $('qbResult');
@@ -1040,7 +974,9 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
         <div class="qb-price-note">Estimated price — we'll confirm the final number after a quick follow-up.</div>
         <ul class="qb-breakdown">${rows}</ul>
         <div class="fineprint">Prices are a starting estimate based on the details provided. Final quote may vary after we see the space.</div>
-        <button type="button" class="btn btn-sun" id="editBtn">&larr; Back — change my answers</button>
+        <a class="btn btn-sun book-now" href="${bookUrl}">Book your cleaning now</a>
+        <div class="edit-note">Pick an open morning or afternoon and you go straight onto the schedule. Bryce follows up to confirm the details and final price.</div>
+        <button type="button" class="btn btn-ghost-light" id="editBtn">&larr; Back — change my answers</button>
         <div class="edit-note">Need to change something? Go back, update it, and we'll send you the updated request.</div>
       </div>`;
     // Land on the "request sent" card once the layout has swapped. The page shrinks
