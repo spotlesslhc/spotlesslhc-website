@@ -29,11 +29,14 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you clean vacation rentals and Airbnbs in Lake Havasu City?","acceptedAnswer":{"@type":"Answer","text":"Yes. We do fast, guest-ready turnovers between checkout and check-in for vacation rentals and Airbnbs in Lake Havasu City."}},{"@type":"Question","name":"How is a turnover priced?","acceptedAnswer":{"@type":"Answer","text":"Choose Vacation Rental / Airbnb Turnover in the quote form, enter the square footage, bedrooms, bathrooms and any add-ons, and you see your estimate when you submit. It is a starting estimate; we confirm the final number after a quick follow-up."}},{"@type":"Question","name":"Can you do laundry and dishes during a turnover?","acceptedAnswer":{"@type":"Answer","text":"Laundry (per load) and dishes are add-ons. Select them in the quote form and they are included in your estimate."}},{"@type":"Question","name":"Do you bring your own supplies?","acceptedAnswer":{"@type":"Answer","text":"Yes. We bring our own cleaning supplies."}},{"@type":"Question","name":"What hours are you open?","acceptedAnswer":{"@type":"Answer","text":"Every day, 9 AM to 9 PM."}},{"@type":"Question","name":"Are you licensed and insured?","acceptedAnswer":{"@type":"Answer","text":"Yes. Spotless Cleaning is licensed and insured, and locally owned and operated in Lake Havasu City, AZ."}}]}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://spotlesslhc.com/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://spotlesslhc.com/#services"},{"@type":"ListItem","position":3,"name":"Vacation rental & Airbnb cleaning","item":"https://spotlesslhc.com/vacation-rental-cleaning"}]}
+</script>
 <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/service.css">
 </head>
-<body>
+<body class="svc svc-vacation">
 
 <header class="site">
   <div class="nav">
@@ -44,7 +47,7 @@
     <nav class="nav-links" aria-label="Primary">
       <div class="nav-drop"><a href="/#services" aria-haspopup="true">Services</a>
         <div class="nav-drop-menu"><div>
-          <a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a>
+          <a href="/vacation-rental-cleaning" aria-current="page">Vacation rental &amp; Airbnb cleaning</a>
           <a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a>
           <a href="/recurring-house-cleaning">Recurring house cleaning</a>
           <a href="/commercial-cleaning">Commercial &amp; office cleaning</a>
@@ -63,6 +66,10 @@
         <summary aria-label="Menu">Menu</summary>
         <nav aria-label="Mobile">
           <a onclick="this.closest('details').open=false" href="/#services">Services</a>
+          <a onclick="this.closest('details').open=false" href="/vacation-rental-cleaning" aria-current="page">&nbsp;&nbsp;Vacation rental &amp; Airbnb</a>
+          <a onclick="this.closest('details').open=false" href="/move-in-move-out-cleaning">&nbsp;&nbsp;Move-in &amp; move-out</a>
+          <a onclick="this.closest('details').open=false" href="/recurring-house-cleaning">&nbsp;&nbsp;Recurring house cleaning</a>
+          <a onclick="this.closest('details').open=false" href="/commercial-cleaning">&nbsp;&nbsp;Commercial &amp; office</a>
           <a onclick="this.closest('details').open=false" href="/#why">Why Us</a>
           <a onclick="this.closest('details').open=false" href="/#quote">Get a Quote</a>
           <a onclick="this.closest('details').open=false" href="/#area">Service Area</a>
@@ -76,8 +83,8 @@
 
   <section class="hero">
     <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Lake Havasu City, AZ · Licensed &amp; Insured</span>
+      <div class="hero-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/#services">Services</a></li><li aria-current="page">Vacation rental &amp; Airbnb cleaning</li></ol></nav>
         <h1>Vacation rental &amp; Airbnb turnover cleaning in Lake Havasu City</h1>
         <p class="lead">Fast, guest-ready turnovers between checkout and check-in, so your place is ready for the next stay. Spotless Cleaning is licensed and insured, locally owned, and we bring our own supplies.</p>
         <div class="hero-ctas">
@@ -85,6 +92,7 @@
           <a class="btn btn-ghost" href="tel:19282285899" style="border-color:rgba(255,255,255,0.5); color:#fff;">Call (928) 228-5899</a>
         </div>
       </div>
+      <svg class="hero-art" viewBox="0 0 320 280" aria-hidden="true" focusable="false"><defs><clipPath id="plate"><path d="M20 264V160a140 140 0 0 1 280 0v104a16 16 0 0 1-16 16H36a16 16 0 0 1-16-16z"/></clipPath></defs><path class="art-plate" d="M20 264V160a140 140 0 0 1 280 0v104a16 16 0 0 1-16 16H36a16 16 0 0 1-16-16z"/><g clip-path="url(#plate)" fill="none" stroke="#12314F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="88" cy="82" r="22" fill="#F2A93B"/><path d="M22 206 74 150l30 30 52-58 58 64 30-26 54 46z" fill="#F8E7CC"/><path class="art-accent" stroke="none" d="M20 206q14-8 28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0V280H20z"/><path d="M20 206q14-8 28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0t28 0"/><path stroke="#fff" stroke-width="3" d="M196 258q10-6 20 0t20 0M248 246q8-5 16 0t16 0"/><rect x="36" y="226" width="216" height="12" fill="#fff"/><path d="M60 238v30M228 238v30"/><path d="M50 226 88 146l38 80z" fill="#fff"/><path d="M74 226l14-30 14 30z" fill="#F2A93B"/><path d="M190 172v-12h26v12"/><rect x="166" y="172" width="74" height="54" rx="8" fill="#F2A93B"/><path stroke-width="3" d="M186 172v54M220 172v54"/><path class="spark" fill="#F2A93B" stroke-width="3" d="M134 88c1.7 7.5 2.5 8.3 10 10c-7.5 1.7 -8.3 2.5 -10 10c-1.7 -7.5 -2.5 -8.3 -10 -10c7.5 -1.7 8.3 -2.5 10 -10z"/><path class="spark d2" fill="#F2A93B" stroke-width="3" d="M268 118c1.36 6 2 6.64 8 8c-6 1.36 -6.64 2 -8 8c-1.36 -6 -2 -6.64 -8 -8c6 -1.36 6.64 -2 8 -8z"/></g></svg>
       <div class="ladder-card">
         <span class="lc-label">Good to know</span>
         <ul class="facts"><li>Open daily, 9 AM to 9 PM</li><li>Same-week availability</li><li>Licensed &amp; insured</li><li>We bring our own supplies</li><li>Lake Havasu City only</li></ul>
@@ -100,11 +108,12 @@
       <div>
         <h2>What you get</h2>
         <p>Every turnover gets the same detail-first checklist as every other job we do.</p>
-        <ul class="checks">
-          <li>A guest-ready clean between checkout and check-in.</li>
-          <li>Our own cleaning supplies, brought to every clean.</li>
-          <li>Add-ons when you need them: pets in the home, interior windows, dishes, interior fridge, interior oven and laundry (per load).</li>
-          <li>Licensed and insured on every job, so you can hand over keys with confidence.</li>
+        <ul class="checks ic">
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#bed"/></svg>A guest-ready clean between checkout and check-in.</li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#bucket"/></svg>Our own cleaning supplies, brought to every clean.</li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#plus"/></svg>Add-ons, picked in the quote form and included in your estimate:
+            <ul class="addons"><li><svg class="i" aria-hidden="true"><use href="/icons.svg#laundry"/></svg>Laundry (per load)</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#dishes"/></svg>Dishes</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#paw"/></svg>Pets in the home</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#window"/></svg>Interior windows</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#fridge"/></svg>Interior fridge</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#oven"/></svg>Interior oven</li></ul></li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#shield"/></svg>Licensed and insured on every job, so you can hand over keys with confidence.</li>
         </ul>
       </div>
       <div class="who">
@@ -114,6 +123,17 @@
           <li>Owners and property managers who need a rental reset between guests</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 id="how-h">How it works</h2>
+      <ol class="steps">
+        <li><h3>Get an instant estimate</h3><p>Choose Vacation Rental / Airbnb Turnover in the quote form, add the square footage, bedrooms, bathrooms and any add-ons, and see your estimate when you submit. Or call <a href="tel:19282285899">(928) 228-5899</a>.</p></li>
+        <li><h3>We confirm the details</h3><p>We follow up to go over your space and confirm the final price. Your estimate is a starting figure, and it may vary once we see the space.</p></li>
+        <li><h3>We turn it over between guests</h3><p>We clean between checkout and check-in so the place is guest-ready for the next stay, with our own supplies.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -172,18 +192,21 @@
       <div class="services-grid">
         <div class="service-card">
           <span class="tag">Moving</span>
+          <div class="icon ic-move"><svg class="i" aria-hidden="true"><use href="/icons.svg#box"/></svg></div>
           <h3>Move-in &amp; move-out cleaning</h3>
           <p>A one-time reset for a home on either side of a move.</p>
           <a class="more" href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning &rarr;</a>
         </div>
         <div class="service-card">
           <span class="tag">Homes</span>
+          <div class="icon ic-recurring"><svg class="i" aria-hidden="true"><use href="/icons.svg#house"/></svg></div>
           <h3>Recurring house cleaning</h3>
           <p>Weekly, every 2 weeks or monthly, and you save 15%, 10% or 5% per visit.</p>
           <a class="more" href="/recurring-house-cleaning">Recurring house cleaning &rarr;</a>
         </div>
         <div class="service-card">
           <span class="tag">Businesses</span>
+          <div class="icon ic-commercial"><svg class="i" aria-hidden="true"><use href="/icons.svg#store"/></svg></div>
           <h3>Commercial &amp; office cleaning</h3>
           <p>After-hours cleaning for offices and small storefronts.</p>
           <a class="more" href="/commercial-cleaning">Commercial &amp; office cleaning &rarr;</a>
@@ -215,7 +238,7 @@
       <div>
         <h3>Services</h3>
         <ul>
-          <li><a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a></li>
+          <li><a href="/vacation-rental-cleaning" aria-current="page">Vacation rental &amp; Airbnb cleaning</a></li>
           <li><a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a></li>
           <li><a href="/recurring-house-cleaning">Recurring house cleaning</a></li>
           <li><a href="/commercial-cleaning">Commercial &amp; office cleaning</a></li>

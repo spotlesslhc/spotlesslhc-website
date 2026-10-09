@@ -29,11 +29,14 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you clean before a move-in as well as after a move-out?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose Residential — Move-In / Move-Out in the quote form for either one."}},{"@type":"Question","name":"Do you clean inside the fridge and oven?","acceptedAnswer":{"@type":"Answer","text":"Interior fridge and interior oven are add-ons, along with interior windows. Select them in the quote form and they are included in your estimate."}},{"@type":"Question","name":"How is a move-in or move-out clean priced?","acceptedAnswer":{"@type":"Answer","text":"Enter the square footage, bedrooms, bathrooms and any add-ons in the quote form and you see your estimate when you submit. It is a starting estimate; we confirm the final number after a quick follow-up, and it may vary once we see the space."}},{"@type":"Question","name":"Do you bring your own supplies?","acceptedAnswer":{"@type":"Answer","text":"Yes. We bring our own cleaning supplies."}},{"@type":"Question","name":"Where do you work?","acceptedAnswer":{"@type":"Answer","text":"We serve Lake Havasu City, AZ only: homes, businesses and vacation rentals within the city."}}]}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://spotlesslhc.com/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://spotlesslhc.com/#services"},{"@type":"ListItem","position":3,"name":"Move-in & move-out cleaning","item":"https://spotlesslhc.com/move-in-move-out-cleaning"}]}
+</script>
 <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/service.css">
 </head>
-<body>
+<body class="svc svc-move">
 
 <header class="site">
   <div class="nav">
@@ -45,7 +48,7 @@
       <div class="nav-drop"><a href="/#services" aria-haspopup="true">Services</a>
         <div class="nav-drop-menu"><div>
           <a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a>
-          <a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a>
+          <a href="/move-in-move-out-cleaning" aria-current="page">Move-in &amp; move-out cleaning</a>
           <a href="/recurring-house-cleaning">Recurring house cleaning</a>
           <a href="/commercial-cleaning">Commercial &amp; office cleaning</a>
         </div></div></div>
@@ -63,6 +66,10 @@
         <summary aria-label="Menu">Menu</summary>
         <nav aria-label="Mobile">
           <a onclick="this.closest('details').open=false" href="/#services">Services</a>
+          <a onclick="this.closest('details').open=false" href="/vacation-rental-cleaning">&nbsp;&nbsp;Vacation rental &amp; Airbnb</a>
+          <a onclick="this.closest('details').open=false" href="/move-in-move-out-cleaning" aria-current="page">&nbsp;&nbsp;Move-in &amp; move-out</a>
+          <a onclick="this.closest('details').open=false" href="/recurring-house-cleaning">&nbsp;&nbsp;Recurring house cleaning</a>
+          <a onclick="this.closest('details').open=false" href="/commercial-cleaning">&nbsp;&nbsp;Commercial &amp; office</a>
           <a onclick="this.closest('details').open=false" href="/#why">Why Us</a>
           <a onclick="this.closest('details').open=false" href="/#quote">Get a Quote</a>
           <a onclick="this.closest('details').open=false" href="/#area">Service Area</a>
@@ -76,8 +83,8 @@
 
   <section class="hero">
     <div class="wrap hero-grid">
-      <div>
-        <span class="eyebrow">Lake Havasu City, AZ · Licensed &amp; Insured</span>
+      <div class="hero-text">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/#services">Services</a></li><li aria-current="page">Move-in &amp; move-out cleaning</li></ol></nav>
         <h1>Move-in &amp; move-out cleaning in Lake Havasu City</h1>
         <p class="lead">A one-time reset for a home on either side of a move, so you can hand back the keys or move in to a clean place. Detail-first, licensed and insured, and we bring our own supplies.</p>
         <div class="hero-ctas">
@@ -85,6 +92,7 @@
           <a class="btn btn-ghost" href="tel:19282285899" style="border-color:rgba(255,255,255,0.5); color:#fff;">Call (928) 228-5899</a>
         </div>
       </div>
+      <svg class="hero-art" viewBox="0 0 320 280" aria-hidden="true" focusable="false"><defs><clipPath id="plate"><path d="M20 264V160a140 140 0 0 1 280 0v104a16 16 0 0 1-16 16H36a16 16 0 0 1-16-16z"/></clipPath></defs><path class="art-plate" d="M20 264V160a140 140 0 0 1 280 0v104a16 16 0 0 1-16 16H36a16 16 0 0 1-16-16z"/><g clip-path="url(#plate)" fill="none" stroke="#12314F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="246" cy="82" r="20" fill="#F2A93B"/><path d="M30 240h260"/><rect x="48" y="100" width="80" height="140" fill="#fff"/><path d="M128 100 160 114v114l-32 12z" fill="#F2A93B"/><path d="M151 172h.01"/><rect class="art-accent" x="168" y="186" width="72" height="54"/><path d="M204 186v18"/><path stroke-width="3" d="M184 228v-14M179 219l5-5 5 5"/><rect class="art-accent" x="240" y="204" width="50" height="36"/><path d="M265 204v12"/><rect x="180" y="146" width="50" height="40" fill="#F2A93B"/><path d="M205 146v12"/><path class="spark" fill="#F2A93B" stroke-width="3" d="M98 59c1.87 8.25 2.75 9.13 11 11c-8.25 1.87 -9.13 2.75 -11 11c-1.87 -8.25 -2.75 -9.13 -11 -11c8.25 -1.87 9.13 -2.75 11 -11z"/><path class="spark d2" fill="#F2A93B" stroke-width="3" d="M282 142c1.36 6 2 6.64 8 8c-6 1.36 -6.64 2 -8 8c-1.36 -6 -2 -6.64 -8 -8c6 -1.36 6.64 -2 8 -8z"/></g></svg>
       <div class="ladder-card">
         <span class="lc-label">Good to know</span>
         <ul class="facts"><li>Open daily, 9 AM to 9 PM</li><li>Same-week availability</li><li>Licensed &amp; insured</li><li>We bring our own supplies</li><li>Lake Havasu City only</li></ul>
@@ -100,11 +108,12 @@
       <div>
         <h2>What you get</h2>
         <p>One visit, with the same detail-first checklist as every other job we do.</p>
-        <ul class="checks">
-          <li>A one-time clean of the home before you move in or after you move out.</li>
-          <li>Interior fridge, interior oven and interior windows as add-ons, plus dishes, laundry (per load) and pets in the home.</li>
-          <li>Our own cleaning supplies, brought to every clean.</li>
-          <li>Licensed and insured on every job.</li>
+        <ul class="checks ic">
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#box"/></svg>A one-time clean of the home before you move in or after you move out.</li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#plus"/></svg>Add-ons, picked in the quote form and included in your estimate:
+            <ul class="addons"><li><svg class="i" aria-hidden="true"><use href="/icons.svg#fridge"/></svg>Interior fridge</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#oven"/></svg>Interior oven</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#window"/></svg>Interior windows</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#dishes"/></svg>Dishes</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#laundry"/></svg>Laundry (per load)</li><li><svg class="i" aria-hidden="true"><use href="/icons.svg#paw"/></svg>Pets in the home</li></ul></li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#bucket"/></svg>Our own cleaning supplies, brought to every clean.</li>
+          <li><svg class="i" aria-hidden="true"><use href="/icons.svg#shield"/></svg>Licensed and insured on every job.</li>
         </ul>
       </div>
       <div class="who">
@@ -115,6 +124,17 @@
           <li>Homeowners, landlords and property managers handing over a home</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 id="how-h">How it works</h2>
+      <ol class="steps">
+        <li><h3>Get an instant estimate</h3><p>Choose Residential — Move-In / Move-Out in the quote form, add the square footage, bedrooms, bathrooms and any add-ons, and see your estimate when you submit. Or call <a href="tel:19282285899">(928) 228-5899</a>.</p></li>
+        <li><h3>We confirm the details</h3><p>We follow up to go over your space and confirm the final price. Your estimate is a starting figure, and it may vary once we see the space.</p></li>
+        <li><h3>We clean before or after the move</h3><p>One visit, before you move in or after you move out, with the same detail-first checklist and our own supplies.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -169,18 +189,21 @@
       <div class="services-grid">
         <div class="service-card">
           <span class="tag">Vacation Rentals</span>
+          <div class="icon ic-vacation"><svg class="i" aria-hidden="true"><use href="/icons.svg#rental"/></svg></div>
           <h3>Vacation rental &amp; Airbnb cleaning</h3>
           <p>Guest-ready turnovers between checkout and check-in.</p>
           <a class="more" href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning &rarr;</a>
         </div>
         <div class="service-card">
           <span class="tag">Homes</span>
+          <div class="icon ic-recurring"><svg class="i" aria-hidden="true"><use href="/icons.svg#house"/></svg></div>
           <h3>Recurring house cleaning</h3>
           <p>Weekly, every 2 weeks or monthly, and you save 15%, 10% or 5% per visit.</p>
           <a class="more" href="/recurring-house-cleaning">Recurring house cleaning &rarr;</a>
         </div>
         <div class="service-card">
           <span class="tag">Businesses</span>
+          <div class="icon ic-commercial"><svg class="i" aria-hidden="true"><use href="/icons.svg#store"/></svg></div>
           <h3>Commercial &amp; office cleaning</h3>
           <p>After-hours cleaning for offices and small storefronts.</p>
           <a class="more" href="/commercial-cleaning">Commercial &amp; office cleaning &rarr;</a>
@@ -213,7 +236,7 @@
         <h3>Services</h3>
         <ul>
           <li><a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a></li>
-          <li><a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a></li>
+          <li><a href="/move-in-move-out-cleaning" aria-current="page">Move-in &amp; move-out cleaning</a></li>
           <li><a href="/recurring-house-cleaning">Recurring house cleaning</a></li>
           <li><a href="/commercial-cleaning">Commercial &amp; office cleaning</a></li>
           <li><a href="/#quote">Get a Quote</a></li>
