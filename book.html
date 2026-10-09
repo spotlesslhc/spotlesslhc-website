@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book your cleaning | Spotless Cleaning, Lake Havasu City</title>
+<meta name="description" content="Pick an open morning or afternoon for your cleaning with Spotless Cleaning in Lake Havasu City, AZ.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/service.css">
+<style>
+  .bk{--hero-end:var(--teal-deep); --accent:var(--teal-deep); --tint:#DCEEF6;}
+  .bk .hero{padding:48px 0 0;}
+  .bk .hero-grid{display:block; padding-bottom:34px;}
+  .bk .hero p.lead{margin:14px 0 0; max-width:58ch;}
+  .bk-main{padding:34px 0 76px;}
+  .bk-grid{display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:32px; align-items:start;}
+  .bk-side{grid-column:2; grid-row:1; position:sticky; top:96px;}
+  .bk-flow{grid-column:1; grid-row:1; display:grid; gap:22px; min-width:0;}
+  .panel{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:28px;}
+  .panel h2{font-size:1.4rem; font-weight:600; margin-bottom:4px;}
+  .panel .hint{color:#4a5b6c; font-size:0.92rem; margin:0 0 20px;}
+  .step-h{display:flex; align-items:center; gap:12px;}
+  .step-h .n{width:32px; height:32px; flex:none; border-radius:50%; background:var(--navy); color:var(--white); font-family:'Fraunces',serif; font-weight:600; display:grid; place-items:center;}
+
+  /* Summary card */
+  .sum{background:linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%); color:var(--white); border-radius:18px; padding:26px 24px;}
+  .sum h2{color:var(--white); font-size:1.15rem; font-weight:600;}
+  .sum .job{margin:6px 0 0; font-size:0.9rem; color:rgba(255,255,255,0.78);}
+  .sum .price{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:2.6rem; line-height:1; margin:20px 0 4px;}
+  .sum .price small{font-family:'Inter',sans-serif; margin-left:4px; font-size:0.9rem; font-weight:500; color:rgba(255,255,255,0.65);}
+  .sum .note{font-size:0.84rem; color:rgba(255,255,255,0.78); margin:8px 0 0;}
+  .freq{border:0; padding:0; margin:20px 0 0;}
+  .freq legend{font-size:0.8rem; font-weight:700; color:rgba(255,255,255,0.85); padding:0 0 8px;}
+  .freq-opts{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .freq input{position:absolute; opacity:0; width:1px; height:1px;}
+  .freq label span{display:block; padding:10px 8px; border-radius:10px; border:1.5px solid rgba(255,255,255,0.22); text-align:center; font-weight:600; font-size:0.86rem; cursor:pointer; line-height:1.25;}
+  .freq label small{display:block; font-weight:500; font-size:0.74rem; color:rgba(255,255,255,0.65);}
+  .freq input:checked + span{background:var(--sun); border-color:var(--sun); color:var(--navy-deep);}
+  .freq input:checked + span small{color:var(--navy-deep);}
+  .freq input:focus-visible + span{outline:3px solid var(--sun); outline-offset:2px;}
+  .sum details{margin-top:18px; font-size:0.86rem; border-top:1px solid rgba(255,255,255,0.14); padding-top:12px;}
+  .sum summary{cursor:pointer; font-weight:600; color:rgba(255,255,255,0.88);}
+  .sum ul{list-style:none; padding:0; margin:10px 0 0;}
+  .sum li{display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.85);}
+  .sum li span:last-child{font-family:'JetBrains Mono',monospace; color:var(--white); white-space:nowrap;}
+  .sum li.disc span:last-child{color:var(--sun);}
+  .linkbtn{background:none; border:0; padding:8px 0; margin-top:10px; font:inherit; font-size:0.86rem; font-weight:700; color:var(--sun); text-decoration:underline; text-underline-offset:3px; cursor:pointer;}
+
+  /* Job editor (no-estimate path, or "change job details") */
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .field-row.three{grid-template-columns:1.4fr 1fr 1fr;}
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px;}
+  .field label{font-size:0.8rem; font-weight:700; color:var(--navy);}
+  .field input, .field select, .field textarea{font-family:'Inter',sans-serif; font-size:1rem; padding:11px 13px; border-radius:9px; border:1.5px solid var(--line); background:var(--sand); color:var(--ink); width:100%;}
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--teal);}
+  .field textarea{resize:vertical; min-height:80px;}
+  .addon-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px; border:0; padding:0; margin:0 0 14px;}
+  .addon-grid legend{font-size:0.8rem; font-weight:700; color:var(--navy); padding:0 0 8px;}
+  .addon{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:9px; border:1.5px solid var(--line); background:var(--sand); font-size:0.9rem; font-weight:600; color:var(--navy);}
+  .addon input{width:18px; height:18px; accent-color:var(--teal-deep);}
+  .addon input[type=number]{width:64px; height:auto; margin-left:auto; padding:6px 8px; border-radius:7px; border:1.5px solid var(--line); font:inherit;}
+
+  /* Day picker */
+  .week + .week{margin-top:22px;}
+  .week h3{font-family:'Inter',sans-serif; font-size:0.86rem; font-weight:700; color:var(--teal-deep); margin:0 0 8px;}
+  .days{list-style:none; padding:0; margin:0; display:grid; gap:8px;}
+  .day{display:grid; grid-template-columns:96px 1fr 1fr; gap:8px; align-items:stretch;}
+  .day .d{display:flex; flex-direction:column; justify-content:center; padding:4px 0;}
+  .day .d b{font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem; color:var(--navy); line-height:1.1;}
+  .day .d span{font-size:0.8rem; color:#4a5b6c;}
+  .slot{position:relative; display:block;}
+  .slot input{position:absolute; opacity:0; width:1px; height:1px;}
+  .slot span{display:flex; flex-direction:column; justify-content:center; height:100%; min-height:54px; padding:8px 12px; border-radius:11px; border:1.5px solid var(--line); background:var(--sand); cursor:pointer; line-height:1.2;}
+  .slot b{font-size:0.92rem; color:var(--navy);}
+  .slot small{font-size:0.78rem; color:#4a5b6c;}
+  .slot:hover input:not(:disabled) + span{border-color:var(--teal);}
+  .slot input:checked + span{background:var(--teal-deep); border-color:var(--teal-deep);}
+  .slot input:checked + span b, .slot input:checked + span small{color:var(--white);}
+  .slot input:focus-visible + span{outline:3px solid var(--sun); outline-offset:2px;}
+  .slot input:disabled + span{cursor:not-allowed; background:transparent; border-style:dashed; border-color:rgba(18,49,79,0.18);}
+  .slot input:disabled + span b{color:#7a8794; text-decoration:line-through;}
+  .slot input:disabled + span small{color:#7a8794;}
+  .week[hidden]{display:none;}
+  .more-weeks{margin-top:18px;}
+  .bk .nav-drop > a{box-shadow:none;}
+  .picker-status{color:#4a5b6c; font-size:0.92rem; margin:0;}
+
+  .msg{border-radius:11px; padding:12px 14px; font-size:0.92rem; margin:0 0 16px;}
+  .msg[hidden]{display:none;}
+  .msg.err{color:#8f1d16; background:#fdecea; border:1px solid #f3c6c2;}
+  .msg.warn{color:#6b4709; background:#fdf2df; border:1px solid #f0d6a8;}
+  .msg .btn{margin-top:10px;}
+  .submit-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:4px;}
+  .submit-row .btn{font-size:1rem; padding:14px 28px;}
+  .submit-row .btn:disabled{opacity:0.6; cursor:progress; transform:none;}
+  .small{font-size:0.84rem; color:#4a5b6c;}
+  .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+
+  /* Success */
+  .done{scroll-margin-top:90px; max-width:620px; margin:0 auto; text-align:left;}
+  .done .when{font-family:'Fraunces',serif; font-size:clamp(1.5rem,4vw,2rem); font-weight:600; color:var(--navy); margin:14px 0 4px; line-height:1.15;}
+  .done .win{font-weight:700; color:var(--teal-deep); margin:0 0 18px;}
+  .done p{color:#3d5064;}
+  .done svg{width:44px; height:44px; stroke:var(--teal-deep);}
+
+  @media (max-width:900px){
+    .bk-grid{grid-template-columns:1fr;}
+    .bk-side, .bk-flow{grid-column:1; grid-row:auto; position:static;}
+  }
+  @media (max-width:560px){
+    .panel{padding:22px 16px;}
+    .field-row, .field-row.three, .addon-grid{grid-template-columns:1fr;}
+    .day{grid-template-columns:1fr 1fr; gap:6px;}
+    .day .d{grid-column:1 / -1; flex-direction:row; justify-content:flex-start; gap:8px; align-items:baseline; padding:6px 0 0;}
+    .submit-row .btn{width:100%;}
+  }
+</style>
+</head>
+<body class="svc bk">
+
+<header class="site">
+  <div class="nav">
+    <a class="brand" href="/">
+      <img src="/logo.webp" width="480" height="320" alt="Spotless Cleaning logo">
+      <span class="brand-word">Spotless Cleaning<span>Lake Havasu City</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <div class="nav-drop"><a href="/#services" aria-haspopup="true">Services</a>
+        <div class="nav-drop-menu"><div>
+          <a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a>
+          <a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a>
+          <a href="/recurring-house-cleaning">Recurring house cleaning</a>
+          <a href="/commercial-cleaning">Commercial &amp; office cleaning</a>
+        </div></div></div>
+      <a href="/#why">Why Us</a>
+      <a href="/#quote">Get a Quote</a>
+      <a href="/#area">Service Area</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="phone-pill" href="tel:19282285899" aria-label="Call (928) 228-5899">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="pp-text">(928) 228-5899</span>
+      </a>
+      <a class="btn btn-primary" href="/#quote">Get a Quote</a>
+      <details class="menu">
+        <summary aria-label="Menu">Menu</summary>
+        <nav aria-label="Mobile">
+          <a onclick="this.closest('details').open=false" href="/#services">Services</a>
+          <a onclick="this.closest('details').open=false" href="/vacation-rental-cleaning">&nbsp;&nbsp;Vacation rental &amp; Airbnb</a>
+          <a onclick="this.closest('details').open=false" href="/move-in-move-out-cleaning">&nbsp;&nbsp;Move-in &amp; move-out</a>
+          <a onclick="this.closest('details').open=false" href="/recurring-house-cleaning">&nbsp;&nbsp;Recurring house cleaning</a>
+          <a onclick="this.closest('details').open=false" href="/commercial-cleaning">&nbsp;&nbsp;Commercial &amp; office</a>
+          <a onclick="this.closest('details').open=false" href="/#why">Why Us</a>
+          <a onclick="this.closest('details').open=false" href="/#quote">Get a Quote</a>
+          <a onclick="this.closest('details').open=false" href="/#area">Service Area</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/#quote">Estimate</a></li><li aria-current="page">Book</li></ol></nav>
+      <h1>Book your cleaning</h1>
+      <p class="lead">Pick an open morning or afternoon and you're on the schedule. Bryce follows up right after to confirm the details, the exact start time and the final price.</p>
+    </div>
+    <div class="wave" aria-hidden="true">
+      <svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,32 C200,60 400,0 600,24 C800,48 1000,10 1200,30 L1200,60 L0,60 Z" fill="#FAF6EF"/></svg>
+    </div>
+  </section>
+
+  <div class="bk-main">
+    <div class="wrap" id="bookingArea">
+      <form class="bk-grid" id="bookForm" novalidate>
+        <aside class="bk-side" aria-labelledby="sumH">
+          <div class="sum">
+            <h2 id="sumH">Your cleaning</h2>
+            <p class="job" id="sumJob"></p>
+            <div class="price" aria-live="polite"><span id="sumPrice"></span> <small>per visit</small></div>
+            <p class="note">This is a starting estimate. Bryce confirms the final price when he follows up.</p>
+            <fieldset class="freq">
+              <legend>How often?</legend>
+              <div class="freq-opts">
+                <label><input type="radio" name="frequency" value="once"><span>One-time<small>full price</small></span></label>
+                <label><input type="radio" name="frequency" value="monthly"><span>Monthly<small>save 5%</small></span></label>
+                <label><input type="radio" name="frequency" value="biweekly"><span>Every 2 weeks<small>save 10%</small></span></label>
+                <label><input type="radio" name="frequency" value="weekly"><span>Weekly<small>save 15%</small></span></label>
+              </div>
+            </fieldset>
+            <details>
+              <summary>How we got this number</summary>
+              <ul id="sumLines"></ul>
+            </details>
+            <button type="button" class="linkbtn" id="editJobBtn">Change job details</button>
+          </div>
+        </aside>
+
+        <div class="bk-flow">
+          <div class="panel" id="jobPanel" hidden>
+            <h2>About the job</h2>
+            <p class="hint">Tell us what needs cleaning and your estimate updates as you go.</p>
+            <div class="field">
+              <label for="jType">Type of cleaning</label>
+              <select id="jType">
+                <option value="standard">Residential — Standard Cleaning</option>
+                <option value="deep">Residential — Deep Cleaning</option>
+                <option value="moveinout">Residential — Move-In / Move-Out</option>
+                <option value="commercial">Commercial Cleaning</option>
+                <option value="turnover">Vacation Rental / Airbnb Turnover</option>
+              </select>
+            </div>
+            <div class="field-row three">
+              <div class="field"><label for="jSqft">Square footage</label><input type="number" id="jSqft" min="100" step="50" inputmode="numeric"></div>
+              <div class="field"><label for="jBeds">Bedrooms</label><input type="number" id="jBeds" min="0" max="12" inputmode="numeric"></div>
+              <div class="field"><label for="jBaths">Bathrooms</label><input type="number" id="jBaths" min="0" max="12" inputmode="numeric"></div>
+            </div>
+            <fieldset class="addon-grid">
+              <legend>Add-ons</legend>
+              <label class="addon"><input type="checkbox" value="pets"> Pets in home</label>
+              <label class="addon"><input type="checkbox" value="windows"> Interior windows</label>
+              <label class="addon"><input type="checkbox" value="dishes"> Dishes</label>
+              <label class="addon"><input type="checkbox" value="fridge"> Fridge (interior)</label>
+              <label class="addon"><input type="checkbox" value="oven"> Oven (interior)</label>
+              <label class="addon" for="jLaundry">Laundry loads <input type="number" id="jLaundry" min="0" max="10" inputmode="numeric"></label>
+            </fieldset>
+          </div>
+
+          <div class="panel">
+            <div class="step-h"><span class="n" aria-hidden="true">1</span><h2 id="pickH">Pick a day</h2></div>
+            <p class="hint">Morning is 8 AM to 12 PM, afternoon is 12 to 4 PM. Bryce sets the exact start time when he follows up.</p>
+            <div class="msg warn" id="takenMsg" role="alert" hidden></div>
+            <fieldset id="picker" aria-labelledby="pickH" style="border:0;padding:0;margin:0;min-width:0">
+              <p class="picker-status" id="pickerStatus">Loading open days…</p>
+            </fieldset>
+          </div>
+
+          <div class="panel">
+            <div class="step-h"><span class="n" aria-hidden="true">2</span><h2>Your details</h2></div>
+            <p class="hint">So Bryce knows where to go and how to reach you. Fields marked * are required.</p>
+            <div class="hp" aria-hidden="true"><label for="bWebsite">Website</label><input type="text" id="bWebsite" name="website" tabindex="-1" autocomplete="off"></div>
+            <div class="field-row">
+              <div class="field"><label for="bName">Name *</label><input type="text" id="bName" required autocomplete="name"></div>
+              <div class="field"><label for="bPhone">Phone *</label><input type="tel" id="bPhone" required autocomplete="tel"></div>
+            </div>
+            <div class="field"><label for="bAddress">Address of the place to clean *</label><input type="text" id="bAddress" required autocomplete="street-address" placeholder="Street address, Lake Havasu City"></div>
+            <div class="field"><label for="bEmail">Email</label><input type="email" id="bEmail" autocomplete="email"></div>
+            <div class="field"><label for="bNotes">Anything else we should know?</label><textarea id="bNotes" placeholder="Gate codes, pets, parking, special requests..."></textarea></div>
+            <div class="msg err" id="formMsg" role="alert" hidden></div>
+            <div class="submit-row">
+              <button type="submit" class="btn btn-primary" id="bookBtn">Book this cleaning</button>
+              <span class="small" id="pickedNote">No day picked yet.</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <img src="/logo.webp" width="480" height="320" alt="Spotless Cleaning logo">
+          <span class="fb-word">Spotless Cleaning</span>
+        </div>
+        <p>Licensed &amp; insured residential and commercial cleaning, locally owned and operated in Lake Havasu City, AZ. Vacation rental turnovers also available.</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="tel:19282285899">(928) 228-5899</a></li>
+          <li><a href="mailto:spotlesscleaninglhc@gmail.com">spotlesscleaninglhc@gmail.com</a></li>
+          <li>Lake Havasu City, AZ</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <ul>
+          <li><a href="/vacation-rental-cleaning">Vacation rental &amp; Airbnb cleaning</a></li>
+          <li><a href="/move-in-move-out-cleaning">Move-in &amp; move-out cleaning</a></li>
+          <li><a href="/recurring-house-cleaning">Recurring house cleaning</a></li>
+          <li><a href="/commercial-cleaning">Commercial &amp; office cleaning</a></li>
+          <li><a href="/#quote">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; <span id="year"></span> Spotless Cleaning. All rights reserved.</span>
+      <span>Licensed &amp; Insured &middot; Lake Havasu City, AZ</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/pricing.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Booking API on the Hermes Worker. Point at a local mock to test.
+const BOOKING_API = 'https://hermes.spotlesslhc.com/webhooks/booking';
+
+const $ = (id) => document.getElementById(id);
+const money = (n) => "$" + n.toLocaleString("en-US", {maximumFractionDigits:0});
+const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const WINDOWS = { morning: ['Morning', '8 AM – 12 PM'], afternoon: ['Afternoon', '12 – 4 PM'] };
+const CALL = '<a class="btn btn-primary" href="tel:19282285899">Call (928) 228-5899</a>';
+
+/* ---------- What they're booking: URL params (job), sessionStorage (contact, address, notes) ---------- */
+let saved = {};
+try { saved = JSON.parse(sessionStorage.getItem('spotlessBooking') || '{}') || {}; } catch (_) {}
+const params = Object.fromEntries(new URLSearchParams(location.search));
+const src = PRICING.base[params.type] ? params : (PRICING.base[saved.type] ? saved : null);
+const clampInt = (v, lo, hi, d) => { const n = parseInt(v); return isNaN(n) ? d : Math.min(Math.max(n, lo), hi); };
+const job = {
+  type: src ? src.type : 'standard',
+  sqft: src ? clampInt(src.sqft, 0, 20000, 1500) : 1500,
+  beds: src ? clampInt(src.beds, 0, 12, 0) : 3,
+  baths: src ? clampInt(src.baths, 0, 12, 0) : 2,
+  laundry: src ? clampInt(src.laundry, 0, 10, 0) : 0,
+  addons: src ? String(src.addons || '').split(',').filter(k => ADDON_KEYS.includes(k)) : [],
+  frequency: PRICING.frequency[(src || {}).frequency] ? src.frequency : 'once',
+};
+for (const [id, k] of [['bName','name'],['bPhone','phone'],['bEmail','email'],['bAddress','address'],['bNotes','notes']]) if (saved[k]) $(id).value = saved[k];
+
+/* ---------- Summary + live price ---------- */
+function render(){
+  const q = quote(job);
+  const parts = [PRICING.base[job.type].label.replace(' (starting at)', '')];
+  if (job.sqft) parts.push(job.sqft.toLocaleString('en-US') + ' sq ft');
+  if (job.beds || job.baths) parts.push(`${job.beds} bed, ${job.baths} bath`);
+  const extras = job.addons.map(k => PRICING.addons[k].label);
+  if (job.laundry) extras.push(`laundry × ${job.laundry}`);
+  $('sumJob').textContent = parts.join(', ') + (extras.length ? '. Add-ons: ' + extras.join(', ') : '. No add-ons');
+  $('sumPrice').textContent = money(q.total);
+  $('sumLines').innerHTML = q.lines.map(l => `<li class="${l.amount < 0 ? 'disc' : ''}"><span>${esc(l.label)}</span><span>${l.amount < 0 ? '−' + money(-l.amount) : money(l.amount)}</span></li>`).join('');
+  return q;
+}
+document.querySelectorAll('[name=frequency]').forEach(r => {
+  r.checked = r.value === job.frequency;
+  r.addEventListener('change', () => { job.frequency = r.value; render(); });
+});
+
+/* ---------- Job editor: open by default when they arrive with no estimate ---------- */
+$('jType').value = job.type; $('jSqft').value = job.sqft; $('jBeds').value = job.beds; $('jBaths').value = job.baths; $('jLaundry').value = job.laundry;
+document.querySelectorAll('#jobPanel input[type=checkbox]').forEach(c => c.checked = job.addons.includes(c.value));
+$('jobPanel').addEventListener('input', () => {
+  job.type = $('jType').value;
+  job.sqft = clampInt($('jSqft').value, 0, 20000, 0);
+  job.beds = clampInt($('jBeds').value, 0, 12, 0);
+  job.baths = clampInt($('jBaths').value, 0, 12, 0);
+  job.laundry = clampInt($('jLaundry').value, 0, 10, 0);
+  job.addons = [...document.querySelectorAll('#jobPanel input[type=checkbox]:checked')].map(c => c.value);
+  render();
+});
+const openEditor = () => { $('jobPanel').hidden = false; $('editJobBtn').hidden = true; };
+$('editJobBtn').addEventListener('click', () => { openEditor(); $('jType').focus(); });
+if (!src) openEditor();
+render();
+
+/* ---------- Availability ----------
+   Expected: { days: [{ date: "YYYY-MM-DD", morning: true, afternoon: false }, ...] }.
+   Also accepts windows as { morning: bool|{available} } or ["morning", ...]. */
+function isOpen(day, w){
+  const ws = day.windows;
+  if (Array.isArray(ws)) return ws.some(x => x === w || (x && (x.window === w || x.id === w) && x.available !== false));
+  const v = ws ? ws[w] : day[w];
+  return v === true || (v && typeof v === 'object' && v.available === true);
+}
+const parseDate = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const fmt = (d, o) => d.toLocaleDateString('en-US', o);
+
+async function loadAvailability(){
+  const picker = $('picker');
+  picker.innerHTML = '<p class="picker-status">Loading open days…</p>';
+  try {
+    const res = await fetch(BOOKING_API + '/availability?days=45', { headers: { Accept: 'application/json' } });
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    const days = (Array.isArray(data) ? data : data.days || []).filter(d => d && /^\d{4}-\d{2}-\d{2}$/.test(d.date));
+    if (!days.some(d => isOpen(d, 'morning') || isOpen(d, 'afternoon'))){
+      picker.innerHTML = `<div class="msg warn">Every morning and afternoon is booked for the next few weeks. Call Bryce and he'll find you a time.<br>${CALL}</div>`;
+      return;
+    }
+    const weeks = new Map();
+    for (const d of days){
+      const dt = parseDate(d.date);
+      const monday = new Date(dt); monday.setDate(dt.getDate() - ((dt.getDay() + 6) % 7));
+      const key = monday.toDateString();
+      if (!weeks.has(key)) weeks.set(key, { monday, days: [] });
+      weeks.get(key).days.push({ ...d, dt });
+    }
+    let html = '';
+    let wi = 0, shownOpen = false;
+    for (const { monday, days: wk } of weeks.values()){
+      html += `<div class="week"${wi++ >= 2 && shownOpen ? ' hidden' : ''}><h3>Week of ${fmt(monday, { month: 'long', day: 'numeric' })}</h3><ul class="days">`;
+      for (const d of wk){
+        const long = fmt(d.dt, { weekday: 'long', month: 'long', day: 'numeric' });
+        html += `<li class="day"><div class="d"><b>${fmt(d.dt, { weekday: 'short' })} ${d.dt.getDate()}</b><span>${fmt(d.dt, { month: 'short' })}</span></div>`;
+        for (const w of ['morning', 'afternoon']){
+          const open = isOpen(d, w);
+          if (open) shownOpen = true;
+          html += `<label class="slot"><input type="radio" name="slot" value="${esc(d.date)}|${w}" data-label="${esc(long)}"${open ? '' : ' disabled'}>`
+               + `<span><b>${WINDOWS[w][0]}</b><small>${open ? WINDOWS[w][1] : 'Booked'}</small><span class="visually-hidden">, ${esc(long)}${open ? '' : ', not available'}</span></span></label>`;
+        }
+        html += '</li>';
+      }
+      html += '</ul></div>';
+    }
+    const later = (html.match(/class="week" hidden/g) || []).length;
+    if (later) html += `<button type="button" class="btn btn-ghost more-weeks" id="moreWeeks">Show later dates</button>`;
+    picker.innerHTML = html;
+    if (later) $('moreWeeks').addEventListener('click', (e) => {
+      const first = picker.querySelector('.week[hidden] h3');
+      picker.querySelectorAll('.week[hidden]').forEach(w => w.hidden = false);
+      e.target.remove();
+      first.tabIndex = -1; first.focus();
+    });
+  } catch (_) {
+    picker.innerHTML = `<div class="msg err">We couldn't load the open days just now. Try again, or call and Bryce will book you in.<br><button type="button" class="btn btn-ghost" id="retryBtn">Try again</button> ${CALL}</div>`;
+    $('retryBtn').addEventListener('click', loadAvailability);
+  }
+  updatePicked();
+}
+function picked(){
+  const r = document.querySelector('[name=slot]:checked');
+  if (!r) return null;
+  const [date, window] = r.value.split('|');
+  return { date, window, label: r.dataset.label };
+}
+function updatePicked(){
+  const p = picked();
+  $('pickedNote').textContent = p ? `${p.label}, ${WINDOWS[p.window][0].toLowerCase()} (${WINDOWS[p.window][1]})` : 'No day picked yet.';
+}
+$('picker').addEventListener('change', updatePicked);
+loadAvailability();
+
+/* ---------- Submit ---------- */
+let sending = false;
+function showMsg(html){ const m = $('formMsg'); m.innerHTML = html; m.hidden = false; }
+
+$('bookForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (sending) return;
+  $('formMsg').hidden = true; $('takenMsg').hidden = true;
+  const p = picked();
+  if (!p){
+    showMsg('Pick a morning or afternoon first (step 1).');
+    $('pickH').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+  const name = $('bName').value.trim(), phone = $('bPhone').value.trim(), address = $('bAddress').value.trim();
+  const missing = [!name && 'name', !phone && 'phone', !address && 'address'].filter(Boolean);
+  if (missing.length){
+    showMsg(`Please add your ${missing.join(', ')} so Bryce can confirm with you.`);
+    $(!name ? 'bName' : !phone ? 'bPhone' : 'bAddress').focus();
+    return;
+  }
+  const q = render();
+  const body = {
+    date: p.date, window: p.window, type: job.type, frequency: job.frequency,
+    sqft: job.sqft, beds: job.beds, baths: job.baths, addons: job.addons, laundryLoads: job.laundry,
+    estimate: q.total, name, phone, email: $('bEmail').value.trim(), address, notes: $('bNotes').value.trim(),
+    website: $('bWebsite').value,
+  };
+
+  sending = true;
+  const btn = $('bookBtn');
+  btn.disabled = true; btn.textContent = 'Booking…';
+  let res, data = {};
+  try {
+    res = await fetch(BOOKING_API, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) });
+    data = await res.json().catch(() => ({}));
+  } catch (_) { res = null; }
+  sending = false;
+  btn.disabled = false; btn.textContent = 'Book this cleaning';
+
+  if (res && res.status === 201){
+    try { sessionStorage.removeItem('spotlessBooking'); } catch (_) {}
+    const when = parseDate(data.date || p.date), w = WINDOWS[data.window] || WINDOWS[p.window];
+    $('bookingArea').innerHTML = `<div class="panel done" tabindex="-1" id="donePanel">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+      <h2>You're on the schedule, ${esc(name.split(' ')[0])}</h2>
+      <p class="when">${esc(fmt(when, { weekday: 'long', month: 'long', day: 'numeric' }))}</p>
+      <p class="win">${w[0]}, ${w[1]}</p>
+      ${data.message ? `<p>${esc(data.message)}</p>` : ''}
+      ${data.message ? '' : `<p>Bryce will call or text you at ${esc(phone)} to confirm the details, the exact start time and the final price.</p>`}
+      <p>Need to change something before then? Call <a href="tel:19282285899">(928) 228-5899</a>.</p>
+      <p><a class="btn btn-ghost" href="/">Back to the homepage</a></p>
+    </div>`;
+    $('donePanel').scrollIntoView({ block: 'start' });
+    $('donePanel').focus({ preventScroll: true });
+    return;
+  }
+  if (res && res.status === 409){
+    const m = $('takenMsg');
+    m.textContent = 'Someone just booked that time. Here are the latest open days. Pick another and your details stay filled in.';
+    m.hidden = false;
+    await loadAvailability();
+    $('pickH').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+  if (res && res.status === 400){
+    showMsg(esc(data.error || data.message || 'Something in the form needs a fix. Check your details and try again.'));
+    return;
+  }
+  // 429, 503, other errors, or no connection
+  showMsg(`We couldn't get your booking through. Please call (928) 228-5899 and Bryce will put you on the schedule.<br>${CALL}`);
+});
+</script>
+</body>
+</html>
