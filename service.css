@@ -110,6 +110,7 @@
   .menu nav{position:absolute; right:0; top:calc(100% + 10px); display:flex; flex-direction:column; min-width:200px; background:var(--sand); border:1px solid var(--line); border-radius:12px; box-shadow:0 12px 30px -12px rgba(11,35,56,.4); overflow:hidden;}
   .menu nav a{display:block; padding:14px 18px; text-decoration:none; font-weight:600; color:var(--navy);}
   .menu nav a+a{border-top:1px solid var(--line);}
+  .menu nav a.sub{padding-left:34px; font-weight:500;}
   @media (max-width:860px){
     .nav-links{display:none;}
     .menu{display:block;}
@@ -178,7 +179,7 @@
   .lc-bar-fill{height:100%; border-radius:6px; background:var(--teal);}
   .lc-row.best .lc-bar-fill{background:var(--sun);}
   .lc-save{
-    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.8rem; color:var(--teal);
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.8rem; color:#6fd0dd;
     width:64px; text-align:right;
   }
   .lc-row.best .lc-save{color:var(--sun);}
