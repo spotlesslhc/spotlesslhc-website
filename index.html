@@ -974,7 +974,7 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
       addons: ADDON_KEYS.filter(k => document.querySelector(`[name=${k}]`).checked).join(','),
     };
     try { sessionStorage.setItem('spotlessBooking', JSON.stringify({ ...job, name, phone, email, address, notes })); } catch (_) {}
-    const bookUrl = '/book?' + new URLSearchParams(job);
+    const bookUrl = '/book?' + new URLSearchParams(job); // unused while online booking is paused (2026-11-13); was the "Book your cleaning now" link
     const updated = sent;
     sent = true;
     const result = $('qbResult');
@@ -991,8 +991,8 @@ document.getElementById('quoteForm').addEventListener('submit', async function(e
         <div class="qb-price-note">Estimated price — we'll confirm the final number after a quick follow-up.</div>
         <ul class="qb-breakdown">${rows}</ul>
         <div class="fineprint">Prices are a starting estimate based on the details provided. Final quote may vary after we see the space.</div>
-        <a class="btn btn-sun book-now" href="${bookUrl}">Book your cleaning now</a>
-        <div class="edit-note">Pick an open morning or afternoon and you go straight onto the schedule. Bryce follows up to confirm the details and final price.</div>
+        <a class="btn btn-sun book-now" href="sms:19282285899">Text us to schedule</a>
+        <div class="edit-note">Or call <a href="tel:19282285899">(928) 228-5899</a> or email <a href="mailto:spotlesscleaninglhc@gmail.com">spotlesscleaninglhc@gmail.com</a>. Please reach out at least a day before you'd like your cleaning.</div>
         <button type="button" class="btn btn-ghost-light" id="editBtn">&larr; Back — change my answers</button>
         <div class="edit-note">Need to change something? Go back, update it, and we'll send you the updated request.</div>
       </div>`;
